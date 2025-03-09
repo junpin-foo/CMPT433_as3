@@ -81,7 +81,7 @@ clean: app/clean
 # Directory level rules for directory app
 
 # Recursive "all" directory target.
-app/all: app/CMakeFiles/reaction_timer.dir/all
+app/all: app/CMakeFiles/beat_box.dir/all
 .PHONY : app/all
 
 # Recursive "preinstall" directory target.
@@ -89,7 +89,7 @@ app/preinstall:
 .PHONY : app/preinstall
 
 # Recursive "clean" directory target.
-app/clean: app/CMakeFiles/reaction_timer.dir/clean
+app/clean: app/CMakeFiles/beat_box.dir/clean
 .PHONY : app/clean
 
 #=============================================================================
@@ -114,12 +114,12 @@ hal/clean: hal/CMakeFiles/hal.dir/clean
 hal/CMakeFiles/hal.dir/all:
 	$(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/depend
 	$(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/junpinfoo/cmpt433/work/as3/build/CMakeFiles --progress-num=1,2,3,4 "Built target hal"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/junpinfoo/cmpt433/work/as3/build/CMakeFiles --progress-num=4,5,6,7,8 "Built target hal"
 .PHONY : hal/CMakeFiles/hal.dir/all
 
 # Build rule for subdir invocation for target.
 hal/CMakeFiles/hal.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/junpinfoo/cmpt433/work/as3/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/junpinfoo/cmpt433/work/as3/build/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 hal/CMakeFiles/hal.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/junpinfoo/cmpt433/work/as3/build/CMakeFiles 0
 .PHONY : hal/CMakeFiles/hal.dir/rule
@@ -134,30 +134,30 @@ hal/CMakeFiles/hal.dir/clean:
 .PHONY : hal/CMakeFiles/hal.dir/clean
 
 #=============================================================================
-# Target rules for target app/CMakeFiles/reaction_timer.dir
+# Target rules for target app/CMakeFiles/beat_box.dir
 
 # All Build rule for target.
-app/CMakeFiles/reaction_timer.dir/all: hal/CMakeFiles/hal.dir/all
-	$(MAKE) $(MAKESILENT) -f app/CMakeFiles/reaction_timer.dir/build.make app/CMakeFiles/reaction_timer.dir/depend
-	$(MAKE) $(MAKESILENT) -f app/CMakeFiles/reaction_timer.dir/build.make app/CMakeFiles/reaction_timer.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/junpinfoo/cmpt433/work/as3/build/CMakeFiles --progress-num=5,6 "Built target reaction_timer"
-.PHONY : app/CMakeFiles/reaction_timer.dir/all
+app/CMakeFiles/beat_box.dir/all: hal/CMakeFiles/hal.dir/all
+	$(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/depend
+	$(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/junpinfoo/cmpt433/work/as3/build/CMakeFiles --progress-num=1,2,3 "Built target beat_box"
+.PHONY : app/CMakeFiles/beat_box.dir/all
 
 # Build rule for subdir invocation for target.
-app/CMakeFiles/reaction_timer.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/junpinfoo/cmpt433/work/as3/build/CMakeFiles 6
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 app/CMakeFiles/reaction_timer.dir/all
+app/CMakeFiles/beat_box.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/junpinfoo/cmpt433/work/as3/build/CMakeFiles 8
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 app/CMakeFiles/beat_box.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/junpinfoo/cmpt433/work/as3/build/CMakeFiles 0
-.PHONY : app/CMakeFiles/reaction_timer.dir/rule
+.PHONY : app/CMakeFiles/beat_box.dir/rule
 
 # Convenience name for target.
-reaction_timer: app/CMakeFiles/reaction_timer.dir/rule
-.PHONY : reaction_timer
+beat_box: app/CMakeFiles/beat_box.dir/rule
+.PHONY : beat_box
 
 # clean rule for target.
-app/CMakeFiles/reaction_timer.dir/clean:
-	$(MAKE) $(MAKESILENT) -f app/CMakeFiles/reaction_timer.dir/build.make app/CMakeFiles/reaction_timer.dir/clean
-.PHONY : app/CMakeFiles/reaction_timer.dir/clean
+app/CMakeFiles/beat_box.dir/clean:
+	$(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/clean
+.PHONY : app/CMakeFiles/beat_box.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

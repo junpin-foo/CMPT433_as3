@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/hal.dir/src/audioMixer.c.o"
+  "CMakeFiles/hal.dir/src/audioMixer.c.o.d"
   "CMakeFiles/hal.dir/src/i2c.c.o"
   "CMakeFiles/hal.dir/src/i2c.c.o.d"
   "CMakeFiles/hal.dir/src/joystick.c.o"

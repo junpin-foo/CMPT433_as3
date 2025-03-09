@@ -69,10 +69,24 @@ include hal/CMakeFiles/hal.dir/progress.make
 # Include the compile flags for this target's objects.
 include hal/CMakeFiles/hal.dir/flags.make
 
+hal/CMakeFiles/hal.dir/src/audioMixer.c.o: hal/CMakeFiles/hal.dir/flags.make
+hal/CMakeFiles/hal.dir/src/audioMixer.c.o: /home/junpinfoo/cmpt433/work/as3/hal/src/audioMixer.c
+hal/CMakeFiles/hal.dir/src/audioMixer.c.o: hal/CMakeFiles/hal.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/junpinfoo/cmpt433/work/as3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object hal/CMakeFiles/hal.dir/src/audioMixer.c.o"
+	cd /home/junpinfoo/cmpt433/work/as3/build/hal && aarch64-linux-gnu-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT hal/CMakeFiles/hal.dir/src/audioMixer.c.o -MF CMakeFiles/hal.dir/src/audioMixer.c.o.d -o CMakeFiles/hal.dir/src/audioMixer.c.o -c /home/junpinfoo/cmpt433/work/as3/hal/src/audioMixer.c
+
+hal/CMakeFiles/hal.dir/src/audioMixer.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/hal.dir/src/audioMixer.c.i"
+	cd /home/junpinfoo/cmpt433/work/as3/build/hal && aarch64-linux-gnu-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/junpinfoo/cmpt433/work/as3/hal/src/audioMixer.c > CMakeFiles/hal.dir/src/audioMixer.c.i
+
+hal/CMakeFiles/hal.dir/src/audioMixer.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/hal.dir/src/audioMixer.c.s"
+	cd /home/junpinfoo/cmpt433/work/as3/build/hal && aarch64-linux-gnu-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/junpinfoo/cmpt433/work/as3/hal/src/audioMixer.c -o CMakeFiles/hal.dir/src/audioMixer.c.s
+
 hal/CMakeFiles/hal.dir/src/i2c.c.o: hal/CMakeFiles/hal.dir/flags.make
 hal/CMakeFiles/hal.dir/src/i2c.c.o: /home/junpinfoo/cmpt433/work/as3/hal/src/i2c.c
 hal/CMakeFiles/hal.dir/src/i2c.c.o: hal/CMakeFiles/hal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/junpinfoo/cmpt433/work/as3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object hal/CMakeFiles/hal.dir/src/i2c.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/junpinfoo/cmpt433/work/as3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object hal/CMakeFiles/hal.dir/src/i2c.c.o"
 	cd /home/junpinfoo/cmpt433/work/as3/build/hal && aarch64-linux-gnu-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT hal/CMakeFiles/hal.dir/src/i2c.c.o -MF CMakeFiles/hal.dir/src/i2c.c.o.d -o CMakeFiles/hal.dir/src/i2c.c.o -c /home/junpinfoo/cmpt433/work/as3/hal/src/i2c.c
 
 hal/CMakeFiles/hal.dir/src/i2c.c.i: cmake_force
@@ -86,7 +100,7 @@ hal/CMakeFiles/hal.dir/src/i2c.c.s: cmake_force
 hal/CMakeFiles/hal.dir/src/joystick.c.o: hal/CMakeFiles/hal.dir/flags.make
 hal/CMakeFiles/hal.dir/src/joystick.c.o: /home/junpinfoo/cmpt433/work/as3/hal/src/joystick.c
 hal/CMakeFiles/hal.dir/src/joystick.c.o: hal/CMakeFiles/hal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/junpinfoo/cmpt433/work/as3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object hal/CMakeFiles/hal.dir/src/joystick.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/junpinfoo/cmpt433/work/as3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object hal/CMakeFiles/hal.dir/src/joystick.c.o"
 	cd /home/junpinfoo/cmpt433/work/as3/build/hal && aarch64-linux-gnu-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT hal/CMakeFiles/hal.dir/src/joystick.c.o -MF CMakeFiles/hal.dir/src/joystick.c.o.d -o CMakeFiles/hal.dir/src/joystick.c.o -c /home/junpinfoo/cmpt433/work/as3/hal/src/joystick.c
 
 hal/CMakeFiles/hal.dir/src/joystick.c.i: cmake_force
@@ -100,7 +114,7 @@ hal/CMakeFiles/hal.dir/src/joystick.c.s: cmake_force
 hal/CMakeFiles/hal.dir/src/led.c.o: hal/CMakeFiles/hal.dir/flags.make
 hal/CMakeFiles/hal.dir/src/led.c.o: /home/junpinfoo/cmpt433/work/as3/hal/src/led.c
 hal/CMakeFiles/hal.dir/src/led.c.o: hal/CMakeFiles/hal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/junpinfoo/cmpt433/work/as3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object hal/CMakeFiles/hal.dir/src/led.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/junpinfoo/cmpt433/work/as3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object hal/CMakeFiles/hal.dir/src/led.c.o"
 	cd /home/junpinfoo/cmpt433/work/as3/build/hal && aarch64-linux-gnu-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT hal/CMakeFiles/hal.dir/src/led.c.o -MF CMakeFiles/hal.dir/src/led.c.o.d -o CMakeFiles/hal.dir/src/led.c.o -c /home/junpinfoo/cmpt433/work/as3/hal/src/led.c
 
 hal/CMakeFiles/hal.dir/src/led.c.i: cmake_force
@@ -113,6 +127,7 @@ hal/CMakeFiles/hal.dir/src/led.c.s: cmake_force
 
 # Object files for target hal
 hal_OBJECTS = \
+"CMakeFiles/hal.dir/src/audioMixer.c.o" \
 "CMakeFiles/hal.dir/src/i2c.c.o" \
 "CMakeFiles/hal.dir/src/joystick.c.o" \
 "CMakeFiles/hal.dir/src/led.c.o"
@@ -120,12 +135,13 @@ hal_OBJECTS = \
 # External object files for target hal
 hal_EXTERNAL_OBJECTS =
 
+hal/libhal.a: hal/CMakeFiles/hal.dir/src/audioMixer.c.o
 hal/libhal.a: hal/CMakeFiles/hal.dir/src/i2c.c.o
 hal/libhal.a: hal/CMakeFiles/hal.dir/src/joystick.c.o
 hal/libhal.a: hal/CMakeFiles/hal.dir/src/led.c.o
 hal/libhal.a: hal/CMakeFiles/hal.dir/build.make
 hal/libhal.a: hal/CMakeFiles/hal.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/junpinfoo/cmpt433/work/as3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C static library libhal.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/junpinfoo/cmpt433/work/as3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C static library libhal.a"
 	cd /home/junpinfoo/cmpt433/work/as3/build/hal && $(CMAKE_COMMAND) -P CMakeFiles/hal.dir/cmake_clean_target.cmake
 	cd /home/junpinfoo/cmpt433/work/as3/build/hal && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/hal.dir/link.txt --verbose=$(VERBOSE)
 

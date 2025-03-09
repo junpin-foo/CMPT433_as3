@@ -130,6 +130,30 @@ hal/fast:
 	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/build
 .PHONY : hal/fast
 
+src/audioMixer.o: src/audioMixer.c.o
+.PHONY : src/audioMixer.o
+
+# target to build an object file
+src/audioMixer.c.o:
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/audioMixer.c.o
+.PHONY : src/audioMixer.c.o
+
+src/audioMixer.i: src/audioMixer.c.i
+.PHONY : src/audioMixer.i
+
+# target to preprocess a source file
+src/audioMixer.c.i:
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/audioMixer.c.i
+.PHONY : src/audioMixer.c.i
+
+src/audioMixer.s: src/audioMixer.c.s
+.PHONY : src/audioMixer.s
+
+# target to generate assembly for a file
+src/audioMixer.c.s:
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/audioMixer.c.s
+.PHONY : src/audioMixer.c.s
+
 src/i2c.o: src/i2c.c.o
 .PHONY : src/i2c.o
 
@@ -211,6 +235,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... hal"
+	@echo "... src/audioMixer.o"
+	@echo "... src/audioMixer.i"
+	@echo "... src/audioMixer.s"
 	@echo "... src/i2c.o"
 	@echo "... src/i2c.i"
 	@echo "... src/i2c.s"

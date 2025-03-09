@@ -1,7 +1,7 @@
 // Incomplete implementation of an audio mixer. Search for "REVISIT" to find things
 // which are left as incomplete.
 // Note: Generates low latency audio on BeagleBone Black; higher latency found on host.
-#include "audioMixer_template.h"
+#include "hal/audioMixer.h"
 #include <alsa/asoundlib.h>
 #include <stdbool.h>
 #include <pthread.h>
@@ -53,7 +53,10 @@ void AudioMixer_init(void)
 	// REVISIT:- Implement this. Hint: set the pSound pointer to NULL for each
 	//     sound bite.
 
-
+	for (int i = 0 ; i < MAX_SOUND_BITES; i++) {
+		soundBites[i].pSound = NULL;
+		soundBites[i].location = 0;
+	}
 
 
 	// Open the PCM output
@@ -156,9 +159,19 @@ void AudioMixer_queueSound(wavedata_t *pSound)
 	 *    not being able to play another wave file.
 	 */
 
-
-
-
+	 pthread_mutex_lock(&audioMutex);
+	 bool queued = false;
+	 for (int i = 0; i < MAX_SOUND_BITES; i++) {
+		 if (soundBites[i].pSound == NULL) {
+			 soundBites[i].pSound = pSound;
+			 soundBites[i].location = 0;
+		 }
+	 }
+	 if (!queued) {
+		 printf("ERROR: Unable to queue sound; no free slots.\n");
+	 }
+	 
+	 pthread_mutex_unlock(&audioMutex);
 
 }
 
@@ -274,13 +287,43 @@ static void fillPlaybackBuffer(short *buff, int size)
 	 *
 	 */
 
-
-
+	 memset(buff, 0, size * sizeof(short));
+	 pthread_mutex_lock(&audioMutex);
+	 for (int i = 0; i < MAX_SOUND_BITES; i++) {
+		// If the slot is being used, add the sound to the buffer
+		 if (soundBites[i].pSound != NULL) {
+			 wavedata_t *pSound = soundBites[i].pSound;
+			 // The offset that sound shold start playin from.
+			 int location = soundBites[i].location;
+			 // Buffer store the sound data gonna play, note: This buffer gonna mix the different psound together
+			 for (int j = 0; j < size; j++) {
+				// If there is more data to play, add it to the buffer
+				if (location < pSound->numSamples) {
+					int mixedValue = buff[j] + pSound->pData[location];
+					if (mixedValue > SHRT_MAX) mixedValue = SHRT_MAX;
+					if (mixedValue < SHRT_MIN) mixedValue = SHRT_MIN;
+					buff[j] = mixedValue;
+					location ++;
+				 }
+			 }
+			 // This psound has finised playing, so free this slot
+			 if (location >= pSound->numSamples) {
+				soundBites[i].pSound = NULL;
+				soundBites[i].location = 0;
+			 } else {
+				// reset index 
+				soundBites[i].location = location;
+			 }
+		 }
+	 }
+	 pthread_mutex_unlock(&audioMutex);
+	
 }
 
 
 void* playbackThread(void* _arg)
 {
+	(void)_arg;
 	while (!stopping) {
 		// Generate next block of audio
 		fillPlaybackBuffer(playbackBuffer, playbackBufferSize);
@@ -299,7 +342,7 @@ void* playbackThread(void* _arg)
 					frames);
 			exit(EXIT_FAILURE);
 		}
-		if (frames > 0 && frames < playbackBufferSize) {
+		if (frames > 0 && frames < (snd_pcm_sframes_t)playbackBufferSize) {
 			printf("Short write (expected %li, wrote %li)\n",
 					playbackBufferSize, frames);
 		}

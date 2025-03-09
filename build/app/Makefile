@@ -117,42 +117,66 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-app/CMakeFiles/reaction_timer.dir/rule:
-	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 app/CMakeFiles/reaction_timer.dir/rule
-.PHONY : app/CMakeFiles/reaction_timer.dir/rule
+app/CMakeFiles/beat_box.dir/rule:
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 app/CMakeFiles/beat_box.dir/rule
+.PHONY : app/CMakeFiles/beat_box.dir/rule
 
 # Convenience name for target.
-reaction_timer: app/CMakeFiles/reaction_timer.dir/rule
-.PHONY : reaction_timer
+beat_box: app/CMakeFiles/beat_box.dir/rule
+.PHONY : beat_box
 
 # fast build rule for target.
-reaction_timer/fast:
-	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/reaction_timer.dir/build.make app/CMakeFiles/reaction_timer.dir/build
-.PHONY : reaction_timer/fast
+beat_box/fast:
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/build
+.PHONY : beat_box/fast
 
-src/reaction_timer.o: src/reaction_timer.c.o
-.PHONY : src/reaction_timer.o
+src/beat_box.o: src/beat_box.c.o
+.PHONY : src/beat_box.o
 
 # target to build an object file
-src/reaction_timer.c.o:
-	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/reaction_timer.dir/build.make app/CMakeFiles/reaction_timer.dir/src/reaction_timer.c.o
-.PHONY : src/reaction_timer.c.o
+src/beat_box.c.o:
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/beat_box.c.o
+.PHONY : src/beat_box.c.o
 
-src/reaction_timer.i: src/reaction_timer.c.i
-.PHONY : src/reaction_timer.i
+src/beat_box.i: src/beat_box.c.i
+.PHONY : src/beat_box.i
 
 # target to preprocess a source file
-src/reaction_timer.c.i:
-	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/reaction_timer.dir/build.make app/CMakeFiles/reaction_timer.dir/src/reaction_timer.c.i
-.PHONY : src/reaction_timer.c.i
+src/beat_box.c.i:
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/beat_box.c.i
+.PHONY : src/beat_box.c.i
 
-src/reaction_timer.s: src/reaction_timer.c.s
-.PHONY : src/reaction_timer.s
+src/beat_box.s: src/beat_box.c.s
+.PHONY : src/beat_box.s
 
 # target to generate assembly for a file
-src/reaction_timer.c.s:
-	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/reaction_timer.dir/build.make app/CMakeFiles/reaction_timer.dir/src/reaction_timer.c.s
-.PHONY : src/reaction_timer.c.s
+src/beat_box.c.s:
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/beat_box.c.s
+.PHONY : src/beat_box.c.s
+
+src/wave_player.o: src/wave_player.c.o
+.PHONY : src/wave_player.o
+
+# target to build an object file
+src/wave_player.c.o:
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/wave_player.c.o
+.PHONY : src/wave_player.c.o
+
+src/wave_player.i: src/wave_player.c.i
+.PHONY : src/wave_player.i
+
+# target to preprocess a source file
+src/wave_player.c.i:
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/wave_player.c.i
+.PHONY : src/wave_player.c.i
+
+src/wave_player.s: src/wave_player.c.s
+.PHONY : src/wave_player.s
+
+# target to generate assembly for a file
+src/wave_player.c.s:
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/wave_player.c.s
+.PHONY : src/wave_player.c.s
 
 # Help Target
 help:
@@ -162,10 +186,13 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... reaction_timer"
-	@echo "... src/reaction_timer.o"
-	@echo "... src/reaction_timer.i"
-	@echo "... src/reaction_timer.s"
+	@echo "... beat_box"
+	@echo "... src/beat_box.o"
+	@echo "... src/beat_box.i"
+	@echo "... src/beat_box.s"
+	@echo "... src/wave_player.o"
+	@echo "... src/wave_player.i"
+	@echo "... src/wave_player.s"
 .PHONY : help
 
 

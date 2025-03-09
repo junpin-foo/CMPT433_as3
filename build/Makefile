@@ -130,17 +130,17 @@ hal/fast:
 .PHONY : hal/fast
 
 #=============================================================================
-# Target rules for targets named reaction_timer
+# Target rules for targets named beat_box
 
 # Build rule for target.
-reaction_timer: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 reaction_timer
-.PHONY : reaction_timer
+beat_box: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 beat_box
+.PHONY : beat_box
 
 # fast build rule for target.
-reaction_timer/fast:
-	$(MAKE) $(MAKESILENT) -f app/CMakeFiles/reaction_timer.dir/build.make app/CMakeFiles/reaction_timer.dir/build
-.PHONY : reaction_timer/fast
+beat_box/fast:
+	$(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/build
+.PHONY : beat_box/fast
 
 # Help Target
 help:
@@ -150,8 +150,8 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... beat_box"
 	@echo "... hal"
-	@echo "... reaction_timer"
 .PHONY : help
 
 

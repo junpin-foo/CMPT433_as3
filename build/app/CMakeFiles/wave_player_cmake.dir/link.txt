@@ -1,0 +1,1 @@
+aarch64-linux-gnu-gcc -g -fsanitize=address -pthread CMakeFiles/wave_player_cmake.dir/src/beat_box.c.o CMakeFiles/wave_player_cmake.dir/src/wave_player.c.o -o wave_player_cmake  ../hal/libhal.a -lasound 
