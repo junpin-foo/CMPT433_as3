@@ -1,0 +1,1 @@
+aarch64-linux-gnu-gcc -g -fsanitize=address -pthread CMakeFiles/reaction_timer.dir/src/reaction_timer.c.o -o reaction_timer  ../hal/libhal.a 

@@ -1,0 +1,22 @@
+[
+{
+  "directory": "/home/junpinfoo/cmpt433/work/as3/build/hal",
+  "command": "aarch64-linux-gnu-gcc  -I/home/junpinfoo/cmpt433/work/as3/hal/hal/include -I/home/junpinfoo/cmpt433/work/as3/hal/include -g -Wall -Werror -Wpedantic -Wextra -g -fno-diagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/hal.dir/src/i2c.c.o -c /home/junpinfoo/cmpt433/work/as3/hal/src/i2c.c",
+  "file": "/home/junpinfoo/cmpt433/work/as3/hal/src/i2c.c"
+},
+{
+  "directory": "/home/junpinfoo/cmpt433/work/as3/build/hal",
+  "command": "aarch64-linux-gnu-gcc  -I/home/junpinfoo/cmpt433/work/as3/hal/hal/include -I/home/junpinfoo/cmpt433/work/as3/hal/include -g -Wall -Werror -Wpedantic -Wextra -g -fno-diagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/hal.dir/src/joystick.c.o -c /home/junpinfoo/cmpt433/work/as3/hal/src/joystick.c",
+  "file": "/home/junpinfoo/cmpt433/work/as3/hal/src/joystick.c"
+},
+{
+  "directory": "/home/junpinfoo/cmpt433/work/as3/build/hal",
+  "command": "aarch64-linux-gnu-gcc  -I/home/junpinfoo/cmpt433/work/as3/hal/hal/include -I/home/junpinfoo/cmpt433/work/as3/hal/include -g -Wall -Werror -Wpedantic -Wextra -g -fno-diagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/hal.dir/src/led.c.o -c /home/junpinfoo/cmpt433/work/as3/hal/src/led.c",
+  "file": "/home/junpinfoo/cmpt433/work/as3/hal/src/led.c"
+},
+{
+  "directory": "/home/junpinfoo/cmpt433/work/as3/build/app",
+  "command": "aarch64-linux-gnu-gcc  -I/home/junpinfoo/cmpt433/work/as3/app/include -I/home/junpinfoo/cmpt433/work/as3/hal/include -g -Wall -Werror -Wpedantic -Wextra -g -fno-diagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/reaction_timer.dir/src/reaction_timer.c.o -c /home/junpinfoo/cmpt433/work/as3/app/src/reaction_timer.c",
+  "file": "/home/junpinfoo/cmpt433/work/as3/app/src/reaction_timer.c"
+}
+]
