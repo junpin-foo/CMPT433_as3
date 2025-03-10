@@ -1,7 +1,7 @@
 hal/CMakeFiles/hal.dir/src/audioMixer.c.o: \
- /home/junpinfoo/cmpt433/work/as3/hal/src/audioMixer.c \
+ /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/hal/src/audioMixer.c \
  /usr/aarch64-linux-gnu/include/stdc-predef.h \
- /home/junpinfoo/cmpt433/work/as3/hal/include/hal/audioMixer.h \
+ /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/hal/include/hal/audioMixer.h \
  /usr/include/alsa/asoundlib.h /usr/aarch64-linux-gnu/include/unistd.h \
  /usr/aarch64-linux-gnu/include/features.h \
  /usr/aarch64-linux-gnu/include/features-time64.h \

@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/junpinfoo/cmpt433/work/as3
+CMAKE_SOURCE_DIR = /home/shaoenh/cmpt433/work/myApps/CMPT433_as3
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/junpinfoo/cmpt433/work/as3/build
+CMAKE_BINARY_DIR = /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build
 
 # Include any dependencies generated for this target.
 include app/CMakeFiles/beat_box.dir/depend.make
@@ -70,18 +70,18 @@ include app/CMakeFiles/beat_box.dir/progress.make
 include app/CMakeFiles/beat_box.dir/flags.make
 
 app/CMakeFiles/beat_box.dir/src/beat_box.c.o: app/CMakeFiles/beat_box.dir/flags.make
-app/CMakeFiles/beat_box.dir/src/beat_box.c.o: /home/junpinfoo/cmpt433/work/as3/app/src/beat_box.c
+app/CMakeFiles/beat_box.dir/src/beat_box.c.o: /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/app/src/beat_box.c
 app/CMakeFiles/beat_box.dir/src/beat_box.c.o: app/CMakeFiles/beat_box.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/junpinfoo/cmpt433/work/as3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object app/CMakeFiles/beat_box.dir/src/beat_box.c.o"
-	cd /home/junpinfoo/cmpt433/work/as3/build/app && aarch64-linux-gnu-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT app/CMakeFiles/beat_box.dir/src/beat_box.c.o -MF CMakeFiles/beat_box.dir/src/beat_box.c.o.d -o CMakeFiles/beat_box.dir/src/beat_box.c.o -c /home/junpinfoo/cmpt433/work/as3/app/src/beat_box.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object app/CMakeFiles/beat_box.dir/src/beat_box.c.o"
+	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build/app && aarch64-linux-gnu-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT app/CMakeFiles/beat_box.dir/src/beat_box.c.o -MF CMakeFiles/beat_box.dir/src/beat_box.c.o.d -o CMakeFiles/beat_box.dir/src/beat_box.c.o -c /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/app/src/beat_box.c
 
 app/CMakeFiles/beat_box.dir/src/beat_box.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/beat_box.dir/src/beat_box.c.i"
-	cd /home/junpinfoo/cmpt433/work/as3/build/app && aarch64-linux-gnu-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/junpinfoo/cmpt433/work/as3/app/src/beat_box.c > CMakeFiles/beat_box.dir/src/beat_box.c.i
+	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build/app && aarch64-linux-gnu-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/app/src/beat_box.c > CMakeFiles/beat_box.dir/src/beat_box.c.i
 
 app/CMakeFiles/beat_box.dir/src/beat_box.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/beat_box.dir/src/beat_box.c.s"
-	cd /home/junpinfoo/cmpt433/work/as3/build/app && aarch64-linux-gnu-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/junpinfoo/cmpt433/work/as3/app/src/beat_box.c -o CMakeFiles/beat_box.dir/src/beat_box.c.s
+	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build/app && aarch64-linux-gnu-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/app/src/beat_box.c -o CMakeFiles/beat_box.dir/src/beat_box.c.s
 
 # Object files for target beat_box
 beat_box_OBJECTS = \
@@ -94,22 +94,22 @@ app/beat_box: app/CMakeFiles/beat_box.dir/src/beat_box.c.o
 app/beat_box: app/CMakeFiles/beat_box.dir/build.make
 app/beat_box: hal/libhal.a
 app/beat_box: app/CMakeFiles/beat_box.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/junpinfoo/cmpt433/work/as3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable beat_box"
-	cd /home/junpinfoo/cmpt433/work/as3/build/app && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/beat_box.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable beat_box"
+	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build/app && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/beat_box.dir/link.txt --verbose=$(VERBOSE)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Copying ARM executable to public NFS directory"
-	cd /home/junpinfoo/cmpt433/work/as3/build/app && /usr/bin/cmake -E copy /home/junpinfoo/cmpt433/work/as3/build/app/beat_box ~/cmpt433/public/beat_box
+	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build/app && /usr/bin/cmake -E copy /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build/app/beat_box ~/cmpt433/public/beat_box
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Copying WAVE files to public NFS directory"
-	cd /home/junpinfoo/cmpt433/work/as3/build/app && /usr/bin/cmake -E copy_directory /home/junpinfoo/cmpt433/work/as3/beatbox-wav-files ~/cmpt433/public/wave-files
+	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build/app && /usr/bin/cmake -E copy_directory /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/beatbox-wav-files ~/cmpt433/public/wave-files
 
 # Rule to build all files generated by this target.
 app/CMakeFiles/beat_box.dir/build: app/beat_box
 .PHONY : app/CMakeFiles/beat_box.dir/build
 
 app/CMakeFiles/beat_box.dir/clean:
-	cd /home/junpinfoo/cmpt433/work/as3/build/app && $(CMAKE_COMMAND) -P CMakeFiles/beat_box.dir/cmake_clean.cmake
+	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build/app && $(CMAKE_COMMAND) -P CMakeFiles/beat_box.dir/cmake_clean.cmake
 .PHONY : app/CMakeFiles/beat_box.dir/clean
 
 app/CMakeFiles/beat_box.dir/depend:
-	cd /home/junpinfoo/cmpt433/work/as3/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/junpinfoo/cmpt433/work/as3 /home/junpinfoo/cmpt433/work/as3/app /home/junpinfoo/cmpt433/work/as3/build /home/junpinfoo/cmpt433/work/as3/build/app /home/junpinfoo/cmpt433/work/as3/build/app/CMakeFiles/beat_box.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/shaoenh/cmpt433/work/myApps/CMPT433_as3 /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/app /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build/app /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build/app/CMakeFiles/beat_box.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : app/CMakeFiles/beat_box.dir/depend
 
