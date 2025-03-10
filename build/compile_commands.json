@@ -23,5 +23,10 @@
   "directory": "/home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build/app",
   "command": "aarch64-linux-gnu-gcc  -I/home/shaoenh/cmpt433/work/myApps/CMPT433_as3/app/include -I/home/shaoenh/cmpt433/work/myApps/CMPT433_as3/hal/include -g -Wall -Werror -Wpedantic -Wextra -g -fno-diagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/beat_box.dir/src/beat_box.c.o -c /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/app/src/beat_box.c",
   "file": "/home/shaoenh/cmpt433/work/myApps/CMPT433_as3/app/src/beat_box.c"
+},
+{
+  "directory": "/home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build/app",
+  "command": "aarch64-linux-gnu-gcc  -I/home/shaoenh/cmpt433/work/myApps/CMPT433_as3/app/include -I/home/shaoenh/cmpt433/work/myApps/CMPT433_as3/hal/include -g -Wall -Werror -Wpedantic -Wextra -g -fno-diagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/beat_box.dir/src/beat_helper.c.o -c /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/app/src/beat_helper.c",
+  "file": "/home/shaoenh/cmpt433/work/myApps/CMPT433_as3/app/src/beat_helper.c"
 }
 ]

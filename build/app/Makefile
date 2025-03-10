@@ -154,6 +154,30 @@ src/beat_box.c.s:
 	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/beat_box.c.s
 .PHONY : src/beat_box.c.s
 
+src/beat_helper.o: src/beat_helper.c.o
+.PHONY : src/beat_helper.o
+
+# target to build an object file
+src/beat_helper.c.o:
+	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/beat_helper.c.o
+.PHONY : src/beat_helper.c.o
+
+src/beat_helper.i: src/beat_helper.c.i
+.PHONY : src/beat_helper.i
+
+# target to preprocess a source file
+src/beat_helper.c.i:
+	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/beat_helper.c.i
+.PHONY : src/beat_helper.c.i
+
+src/beat_helper.s: src/beat_helper.c.s
+.PHONY : src/beat_helper.s
+
+# target to generate assembly for a file
+src/beat_helper.c.s:
+	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/beat_helper.c.s
+.PHONY : src/beat_helper.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -166,6 +190,9 @@ help:
 	@echo "... src/beat_box.o"
 	@echo "... src/beat_box.i"
 	@echo "... src/beat_box.s"
+	@echo "... src/beat_helper.o"
+	@echo "... src/beat_helper.i"
+	@echo "... src/beat_helper.s"
 .PHONY : help
 
 
