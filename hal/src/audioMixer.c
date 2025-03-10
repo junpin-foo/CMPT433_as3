@@ -162,10 +162,12 @@ void AudioMixer_queueSound(wavedata_t *pSound)
 	 pthread_mutex_lock(&audioMutex);
 	 bool queued = false;
 	 for (int i = 0; i < MAX_SOUND_BITES; i++) {
-		 if (soundBites[i].pSound == NULL) {
-			 soundBites[i].pSound = pSound;
-			 soundBites[i].location = 0;
-		 }
+		if (soundBites[i].pSound == NULL) {
+			soundBites[i].pSound = pSound;
+			soundBites[i].location = 0;
+			queued = true;
+			break;
+		}
 	 }
 	 if (!queued) {
 		 printf("ERROR: Unable to queue sound; no free slots.\n");
@@ -221,8 +223,8 @@ void AudioMixer_setVolume(int newVolume)
     snd_mixer_t *mixerHandle;
     snd_mixer_selem_id_t *sid;
     const char *card = "default";
-    // const char *selem_name = "PCM";	// For ZEN cape
-    const char *selem_name = "Speaker";	// For USB Audio
+    const char *selem_name = "PCM";	// For ZEN cape
+    // const char *selem_name = "Speaker";	// For USB Audio
 
     snd_mixer_open(&mixerHandle, 0);
     snd_mixer_attach(mixerHandle, card);

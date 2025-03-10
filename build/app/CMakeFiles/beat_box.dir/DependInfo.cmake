@@ -9,7 +9,6 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/junpinfoo/cmpt433/work/as3/app/src/beat_box.c" "app/CMakeFiles/beat_box.dir/src/beat_box.c.o" "gcc" "app/CMakeFiles/beat_box.dir/src/beat_box.c.o.d"
-  "/home/junpinfoo/cmpt433/work/as3/app/src/wave_player.c" "app/CMakeFiles/beat_box.dir/src/wave_player.c.o" "gcc" "app/CMakeFiles/beat_box.dir/src/wave_player.c.o.d"
   )
 
 # Targets to which this target links.

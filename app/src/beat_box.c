@@ -1,8 +1,9 @@
 /* beat_box.c
 */
 
-#include <wave_player.h>
-// #include "hal/audioMixer.h"
+#include "hal/audioMixer.h"
+#include <stdio.h>
+#include <unistd.h>
 
 #define SOURCE_FILE "wave-files/100051__menegass__gui-drum-bd-hard.wav"
 
@@ -10,28 +11,23 @@ int main(void)
 {
 	printf("Beginning play-back of %s\n", SOURCE_FILE);
 
-	// Configure Output Device
-	snd_pcm_t *handle = Audio_openDevice();
+	AudioMixer_init();
 
-	// Load wave file we want to play:
 	wavedata_t sampleFile;
-	Audio_readWaveFileIntoMemory(SOURCE_FILE, &sampleFile);
 
-	// Play Audio
-	// Audio_playFile(handle, &sampleFile);
-	// Audio_playFile(handle, &sampleFile);
-	// Audio_playFile(handle, &sampleFile);
     while(1) {
-        Audio_playFile(handle, &sampleFile);
+        AudioMixer_setVolume(50);
+		// Read source file data in to sampleFile pointer
+        AudioMixer_readWaveFileIntoMemory(SOURCE_FILE, &sampleFile);
+		// Queue the sound data into module
+        AudioMixer_queueSound(&sampleFile);
+        // AudioMixer_freeWaveFileData(&sampleFile);
         sleep(1);
     }
 
 	// Cleanup, letting the music in buffer play out (drain), then close and free.
-	snd_pcm_drain(handle);
-	snd_pcm_hw_free(handle);
-	snd_pcm_close(handle);
-	free(sampleFile.pData);
+    AudioMixer_freeWaveFileData(&sampleFile);
+    AudioMixer_cleanup();
 
-	printf("Done!\n");
 	return 0;
 }

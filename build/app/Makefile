@@ -154,30 +154,6 @@ src/beat_box.c.s:
 	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/beat_box.c.s
 .PHONY : src/beat_box.c.s
 
-src/wave_player.o: src/wave_player.c.o
-.PHONY : src/wave_player.o
-
-# target to build an object file
-src/wave_player.c.o:
-	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/wave_player.c.o
-.PHONY : src/wave_player.c.o
-
-src/wave_player.i: src/wave_player.c.i
-.PHONY : src/wave_player.i
-
-# target to preprocess a source file
-src/wave_player.c.i:
-	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/wave_player.c.i
-.PHONY : src/wave_player.c.i
-
-src/wave_player.s: src/wave_player.c.s
-.PHONY : src/wave_player.s
-
-# target to generate assembly for a file
-src/wave_player.c.s:
-	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/wave_player.c.s
-.PHONY : src/wave_player.c.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -190,9 +166,6 @@ help:
 	@echo "... src/beat_box.o"
 	@echo "... src/beat_box.i"
 	@echo "... src/beat_box.s"
-	@echo "... src/wave_player.o"
-	@echo "... src/wave_player.i"
-	@echo "... src/wave_player.s"
 .PHONY : help
 
 

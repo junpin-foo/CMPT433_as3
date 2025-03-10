@@ -23,10 +23,5 @@
   "directory": "/home/junpinfoo/cmpt433/work/as3/build/app",
   "command": "aarch64-linux-gnu-gcc  -I/home/junpinfoo/cmpt433/work/as3/app/include -I/home/junpinfoo/cmpt433/work/as3/hal/include -g -Wall -Werror -Wpedantic -Wextra -g -fno-diagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/beat_box.dir/src/beat_box.c.o -c /home/junpinfoo/cmpt433/work/as3/app/src/beat_box.c",
   "file": "/home/junpinfoo/cmpt433/work/as3/app/src/beat_box.c"
-},
-{
-  "directory": "/home/junpinfoo/cmpt433/work/as3/build/app",
-  "command": "aarch64-linux-gnu-gcc  -I/home/junpinfoo/cmpt433/work/as3/app/include -I/home/junpinfoo/cmpt433/work/as3/hal/include -g -Wall -Werror -Wpedantic -Wextra -g -fno-diagnostics-color -fsanitize=address -pthread -std=gnu11 -o CMakeFiles/beat_box.dir/src/wave_player.c.o -c /home/junpinfoo/cmpt433/work/as3/app/src/wave_player.c",
-  "file": "/home/junpinfoo/cmpt433/work/as3/app/src/wave_player.c"
 }
 ]

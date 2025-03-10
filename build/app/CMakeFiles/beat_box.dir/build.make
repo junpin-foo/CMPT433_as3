@@ -83,34 +83,18 @@ app/CMakeFiles/beat_box.dir/src/beat_box.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/beat_box.dir/src/beat_box.c.s"
 	cd /home/junpinfoo/cmpt433/work/as3/build/app && aarch64-linux-gnu-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/junpinfoo/cmpt433/work/as3/app/src/beat_box.c -o CMakeFiles/beat_box.dir/src/beat_box.c.s
 
-app/CMakeFiles/beat_box.dir/src/wave_player.c.o: app/CMakeFiles/beat_box.dir/flags.make
-app/CMakeFiles/beat_box.dir/src/wave_player.c.o: /home/junpinfoo/cmpt433/work/as3/app/src/wave_player.c
-app/CMakeFiles/beat_box.dir/src/wave_player.c.o: app/CMakeFiles/beat_box.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/junpinfoo/cmpt433/work/as3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object app/CMakeFiles/beat_box.dir/src/wave_player.c.o"
-	cd /home/junpinfoo/cmpt433/work/as3/build/app && aarch64-linux-gnu-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT app/CMakeFiles/beat_box.dir/src/wave_player.c.o -MF CMakeFiles/beat_box.dir/src/wave_player.c.o.d -o CMakeFiles/beat_box.dir/src/wave_player.c.o -c /home/junpinfoo/cmpt433/work/as3/app/src/wave_player.c
-
-app/CMakeFiles/beat_box.dir/src/wave_player.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/beat_box.dir/src/wave_player.c.i"
-	cd /home/junpinfoo/cmpt433/work/as3/build/app && aarch64-linux-gnu-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/junpinfoo/cmpt433/work/as3/app/src/wave_player.c > CMakeFiles/beat_box.dir/src/wave_player.c.i
-
-app/CMakeFiles/beat_box.dir/src/wave_player.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/beat_box.dir/src/wave_player.c.s"
-	cd /home/junpinfoo/cmpt433/work/as3/build/app && aarch64-linux-gnu-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/junpinfoo/cmpt433/work/as3/app/src/wave_player.c -o CMakeFiles/beat_box.dir/src/wave_player.c.s
-
 # Object files for target beat_box
 beat_box_OBJECTS = \
-"CMakeFiles/beat_box.dir/src/beat_box.c.o" \
-"CMakeFiles/beat_box.dir/src/wave_player.c.o"
+"CMakeFiles/beat_box.dir/src/beat_box.c.o"
 
 # External object files for target beat_box
 beat_box_EXTERNAL_OBJECTS =
 
 app/beat_box: app/CMakeFiles/beat_box.dir/src/beat_box.c.o
-app/beat_box: app/CMakeFiles/beat_box.dir/src/wave_player.c.o
 app/beat_box: app/CMakeFiles/beat_box.dir/build.make
 app/beat_box: hal/libhal.a
 app/beat_box: app/CMakeFiles/beat_box.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/junpinfoo/cmpt433/work/as3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable beat_box"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/junpinfoo/cmpt433/work/as3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable beat_box"
 	cd /home/junpinfoo/cmpt433/work/as3/build/app && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/beat_box.dir/link.txt --verbose=$(VERBOSE)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Copying ARM executable to public NFS directory"
 	cd /home/junpinfoo/cmpt433/work/as3/build/app && /usr/bin/cmake -E copy /home/junpinfoo/cmpt433/work/as3/build/app/beat_box ~/cmpt433/public/beat_box
