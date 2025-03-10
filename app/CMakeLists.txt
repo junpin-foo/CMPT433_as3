@@ -31,3 +31,6 @@ add_custom_command(TARGET beat_box POST_BUILD
      "${CMAKE_SOURCE_DIR}/beatbox-wav-files"
      "~/cmpt433/public/wave-files" 
   COMMENT "Copying WAVE files to public NFS directory")
+
+find_library(GPIOD_LIBRARY gpiod)       
+target_link_libraries(beat_box LINK_PRIVATE gpiod)

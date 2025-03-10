@@ -1,9 +1,9 @@
-app/CMakeFiles/beat_box.dir/src/beat_box.c.o: \
- /home/junpinfoo/cmpt433/work/as3/app/src/beat_box.c \
+hal/CMakeFiles/hal.dir/src/gpio.c.o: \
+ /home/junpinfoo/cmpt433/work/as3/hal/src/gpio.c \
  /usr/aarch64-linux-gnu/include/stdc-predef.h \
- /home/junpinfoo/cmpt433/work/as3/hal/include/hal/audioMixer.h \
- /home/junpinfoo/cmpt433/work/as3/hal/include/hal/joystick.h \
- /usr/aarch64-linux-gnu/include/stdio.h \
+ /home/junpinfoo/cmpt433/work/as3/hal/include/hal/gpio.h \
+ /usr/lib/gcc-cross/aarch64-linux-gnu/12/include/stdbool.h \
+ /usr/include/gpiod.h /usr/aarch64-linux-gnu/include/stdlib.h \
  /usr/aarch64-linux-gnu/include/bits/libc-header-start.h \
  /usr/aarch64-linux-gnu/include/features.h \
  /usr/aarch64-linux-gnu/include/features-time64.h \
@@ -14,23 +14,14 @@ app/CMakeFiles/beat_box.dir/src/beat_box.c.o: \
  /usr/aarch64-linux-gnu/include/gnu/stubs.h \
  /usr/aarch64-linux-gnu/include/gnu/stubs-lp64.h \
  /usr/lib/gcc-cross/aarch64-linux-gnu/12/include/stddef.h \
- /usr/lib/gcc-cross/aarch64-linux-gnu/12/include/stdarg.h \
+ /usr/aarch64-linux-gnu/include/bits/waitflags.h \
+ /usr/aarch64-linux-gnu/include/bits/waitstatus.h \
+ /usr/aarch64-linux-gnu/include/bits/floatn.h \
+ /usr/aarch64-linux-gnu/include/bits/floatn-common.h \
+ /usr/aarch64-linux-gnu/include/sys/types.h \
  /usr/aarch64-linux-gnu/include/bits/types.h \
  /usr/aarch64-linux-gnu/include/bits/typesizes.h \
  /usr/aarch64-linux-gnu/include/bits/time64.h \
- /usr/aarch64-linux-gnu/include/bits/types/__fpos_t.h \
- /usr/aarch64-linux-gnu/include/bits/types/__mbstate_t.h \
- /usr/aarch64-linux-gnu/include/bits/types/__fpos64_t.h \
- /usr/aarch64-linux-gnu/include/bits/types/__FILE.h \
- /usr/aarch64-linux-gnu/include/bits/types/FILE.h \
- /usr/aarch64-linux-gnu/include/bits/types/struct_FILE.h \
- /usr/aarch64-linux-gnu/include/bits/stdio_lim.h \
- /usr/aarch64-linux-gnu/include/bits/floatn.h \
- /usr/aarch64-linux-gnu/include/bits/floatn-common.h \
- /usr/aarch64-linux-gnu/include/stdlib.h \
- /usr/aarch64-linux-gnu/include/bits/waitflags.h \
- /usr/aarch64-linux-gnu/include/bits/waitstatus.h \
- /usr/aarch64-linux-gnu/include/sys/types.h \
  /usr/aarch64-linux-gnu/include/bits/types/clock_t.h \
  /usr/aarch64-linux-gnu/include/bits/types/clockid_t.h \
  /usr/aarch64-linux-gnu/include/bits/types/time_t.h \
@@ -55,12 +46,19 @@ app/CMakeFiles/beat_box.dir/src/beat_box.c.o: \
  /usr/aarch64-linux-gnu/include/bits/struct_rwlock.h \
  /usr/aarch64-linux-gnu/include/alloca.h \
  /usr/aarch64-linux-gnu/include/bits/stdlib-float.h \
- /usr/lib/gcc-cross/aarch64-linux-gnu/12/include/stdbool.h \
- /home/junpinfoo/cmpt433/work/as3/app/include/beat_helper.h \
- /usr/aarch64-linux-gnu/include/unistd.h \
- /usr/aarch64-linux-gnu/include/bits/posix_opt.h \
- /usr/aarch64-linux-gnu/include/bits/environments.h \
- /usr/aarch64-linux-gnu/include/bits/confname.h \
- /usr/aarch64-linux-gnu/include/bits/getopt_posix.h \
- /usr/aarch64-linux-gnu/include/bits/getopt_core.h \
- /usr/aarch64-linux-gnu/include/bits/unistd_ext.h
+ /usr/aarch64-linux-gnu/include/time.h \
+ /usr/aarch64-linux-gnu/include/bits/time.h \
+ /usr/aarch64-linux-gnu/include/bits/types/struct_tm.h \
+ /usr/aarch64-linux-gnu/include/bits/types/struct_itimerspec.h \
+ /usr/aarch64-linux-gnu/include/bits/types/locale_t.h \
+ /usr/aarch64-linux-gnu/include/bits/types/__locale_t.h \
+ /usr/aarch64-linux-gnu/include/stdio.h \
+ /usr/lib/gcc-cross/aarch64-linux-gnu/12/include/stdarg.h \
+ /usr/aarch64-linux-gnu/include/bits/types/__fpos_t.h \
+ /usr/aarch64-linux-gnu/include/bits/types/__mbstate_t.h \
+ /usr/aarch64-linux-gnu/include/bits/types/__fpos64_t.h \
+ /usr/aarch64-linux-gnu/include/bits/types/__FILE.h \
+ /usr/aarch64-linux-gnu/include/bits/types/FILE.h \
+ /usr/aarch64-linux-gnu/include/bits/types/struct_FILE.h \
+ /usr/aarch64-linux-gnu/include/bits/stdio_lim.h \
+ /usr/aarch64-linux-gnu/include/assert.h

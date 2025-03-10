@@ -1,7 +1,7 @@
 hal/CMakeFiles/hal.dir/src/joystick.c.o: \
- /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/hal/src/joystick.c \
+ /home/junpinfoo/cmpt433/work/as3/hal/src/joystick.c \
  /usr/aarch64-linux-gnu/include/stdc-predef.h \
- /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/hal/include/hal/joystick.h \
+ /home/junpinfoo/cmpt433/work/as3/hal/include/hal/joystick.h \
  /usr/aarch64-linux-gnu/include/stdio.h \
  /usr/aarch64-linux-gnu/include/bits/libc-header-start.h \
  /usr/aarch64-linux-gnu/include/features.h \
@@ -55,9 +55,33 @@ hal/CMakeFiles/hal.dir/src/joystick.c.o: \
  /usr/aarch64-linux-gnu/include/alloca.h \
  /usr/aarch64-linux-gnu/include/bits/stdlib-float.h \
  /usr/lib/gcc-cross/aarch64-linux-gnu/12/include/stdbool.h \
- /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/hal/include/hal/i2c.h \
+ /home/junpinfoo/cmpt433/work/as3/hal/include/hal/i2c.h \
  /usr/lib/gcc-cross/aarch64-linux-gnu/12/include/stdint.h \
  /usr/aarch64-linux-gnu/include/stdint.h \
  /usr/aarch64-linux-gnu/include/bits/wchar.h \
  /usr/aarch64-linux-gnu/include/bits/stdint-uintn.h \
- /usr/aarch64-linux-gnu/include/assert.h
+ /home/junpinfoo/cmpt433/work/as3/hal/include/hal/gpio.h \
+ /usr/include/gpiod.h /usr/aarch64-linux-gnu/include/time.h \
+ /usr/aarch64-linux-gnu/include/bits/time.h \
+ /usr/aarch64-linux-gnu/include/bits/types/struct_tm.h \
+ /usr/aarch64-linux-gnu/include/bits/types/struct_itimerspec.h \
+ /usr/aarch64-linux-gnu/include/bits/types/locale_t.h \
+ /usr/aarch64-linux-gnu/include/bits/types/__locale_t.h \
+ /usr/aarch64-linux-gnu/include/assert.h \
+ /usr/aarch64-linux-gnu/include/pthread.h \
+ /usr/aarch64-linux-gnu/include/sched.h \
+ /usr/aarch64-linux-gnu/include/bits/sched.h \
+ /usr/aarch64-linux-gnu/include/bits/types/struct_sched_param.h \
+ /usr/aarch64-linux-gnu/include/bits/cpu-set.h \
+ /usr/aarch64-linux-gnu/include/bits/setjmp.h \
+ /usr/aarch64-linux-gnu/include/bits/types/struct___jmp_buf_tag.h \
+ /usr/aarch64-linux-gnu/include/bits/pthread_stack_min-dynamic.h \
+ /usr/aarch64-linux-gnu/include/bits/pthread_stack_min.h \
+ /usr/aarch64-linux-gnu/include/unistd.h \
+ /usr/aarch64-linux-gnu/include/bits/posix_opt.h \
+ /usr/aarch64-linux-gnu/include/bits/environments.h \
+ /usr/aarch64-linux-gnu/include/bits/confname.h \
+ /usr/aarch64-linux-gnu/include/bits/getopt_posix.h \
+ /usr/aarch64-linux-gnu/include/bits/getopt_core.h \
+ /usr/aarch64-linux-gnu/include/bits/unistd_ext.h \
+ /usr/lib/gcc-cross/aarch64-linux-gnu/12/include/stdatomic.h

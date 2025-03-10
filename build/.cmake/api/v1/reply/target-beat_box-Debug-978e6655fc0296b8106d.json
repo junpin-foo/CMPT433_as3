@@ -60,6 +60,12 @@
 				"parent" : 0
 			},
 			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 36,
+				"parent" : 0
+			},
+			{
 				"command" : 3,
 				"file" : 1,
 				"line" : 8,
@@ -100,35 +106,35 @@
 					"fragment" : "-g"
 				},
 				{
-					"backtrace" : 7,
+					"backtrace" : 8,
 					"fragment" : "-Wall"
 				},
 				{
-					"backtrace" : 7,
+					"backtrace" : 8,
 					"fragment" : "-Werror"
 				},
 				{
-					"backtrace" : 7,
+					"backtrace" : 8,
 					"fragment" : "-Wpedantic"
 				},
 				{
-					"backtrace" : 7,
+					"backtrace" : 8,
 					"fragment" : "-Wextra"
 				},
 				{
-					"backtrace" : 7,
+					"backtrace" : 8,
 					"fragment" : "-g"
 				},
 				{
-					"backtrace" : 8,
+					"backtrace" : 9,
 					"fragment" : "-fno-diagnostics-color"
 				},
 				{
-					"backtrace" : 9,
+					"backtrace" : 10,
 					"fragment" : "-fsanitize=address"
 				},
 				{
-					"backtrace" : 10,
+					"backtrace" : 11,
 					"fragment" : "-pthread"
 				},
 				{
@@ -138,12 +144,12 @@
 			"includes" : 
 			[
 				{
-					"backtrace" : 11,
-					"path" : "/home/shaoenh/cmpt433/work/myApps/CMPT433_as3/app/include"
+					"backtrace" : 12,
+					"path" : "/home/junpinfoo/cmpt433/work/as3/app/include"
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/home/shaoenh/cmpt433/work/myApps/CMPT433_as3/hal/include"
+					"path" : "/home/junpinfoo/cmpt433/work/as3/hal/include"
 				}
 			],
 			"language" : "C",
@@ -200,6 +206,11 @@
 			{
 				"backtrace" : 6,
 				"fragment" : "-lasound",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 7,
+				"fragment" : "-lgpiod",
 				"role" : "libraries"
 			}
 		],

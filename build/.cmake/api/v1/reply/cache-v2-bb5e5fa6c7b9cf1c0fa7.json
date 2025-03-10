@@ -87,7 +87,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build"
+			"value" : "/home/junpinfoo/cmpt433/work/as3/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -447,7 +447,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build/CMakeFiles/pkgRedirects"
+			"value" : "/home/junpinfoo/cmpt433/work/as3/build/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -519,7 +519,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/shaoenh/cmpt433/work/myApps/CMPT433_as3"
+			"value" : "/home/junpinfoo/cmpt433/work/as3"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1130,6 +1130,18 @@
 			"value" : "[TRUE][v()]"
 		},
 		{
+			"name" : "GPIOD_LIBRARY",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a library."
+				}
+			],
+			"type" : "FILEPATH",
+			"value" : "/usr/lib/aarch64-linux-gnu/libgpiod.so"
+		},
+		{
 			"name" : "_CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED",
 			"properties" : 
 			[
@@ -1151,7 +1163,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build"
+			"value" : "/home/junpinfoo/cmpt433/work/as3/build"
 		},
 		{
 			"name" : "reaction_timer_IS_TOP_LEVEL",
@@ -1175,7 +1187,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/shaoenh/cmpt433/work/myApps/CMPT433_as3"
+			"value" : "/home/junpinfoo/cmpt433/work/as3"
 		}
 	],
 	"kind" : "cache",

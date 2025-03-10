@@ -73,14 +73,14 @@
 				{
 					"directoryIndex" : 2,
 					"id" : "beat_box::@5f5a17c01335469806cb",
-					"jsonFile" : "target-beat_box-Debug-194c656f1191a720a347.json",
+					"jsonFile" : "target-beat_box-Debug-978e6655fc0296b8106d.json",
 					"name" : "beat_box",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 1,
 					"id" : "hal::@ad971efe0e95b39e260f",
-					"jsonFile" : "target-hal-Debug-bb777fd9dad743b68115.json",
+					"jsonFile" : "target-hal-Debug-0c3d6a7acf9166af2fef.json",
 					"name" : "hal",
 					"projectIndex" : 0
 				}
@@ -90,8 +90,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build",
-		"source" : "/home/shaoenh/cmpt433/work/myApps/CMPT433_as3"
+		"build" : "/home/junpinfoo/cmpt433/work/as3/build",
+		"source" : "/home/junpinfoo/cmpt433/work/as3"
 	},
 	"version" : 
 	{

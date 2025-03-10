@@ -19,6 +19,15 @@ struct JoystickData {
     bool isPressed;
 };
 
+typedef enum {
+    JOYSTICK_CENTER,
+    JOYSTICK_UP,
+    JOYSTICK_DOWN,
+    JOYSTICK_LEFT,
+    JOYSTICK_RIGHT,
+    JOYSTICK_PRESSED
+} JoystickDirection;
+
 void Joystick_initialize(void);
 void Joystick_cleanUp(void);
 /*

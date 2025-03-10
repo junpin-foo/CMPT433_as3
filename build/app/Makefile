@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/shaoenh/cmpt433/work/myApps/CMPT433_as3
+CMAKE_SOURCE_DIR = /home/junpinfoo/cmpt433/work/as3
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build
+CMAKE_BINARY_DIR = /home/junpinfoo/cmpt433/work/as3/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,14 +87,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build/CMakeFiles /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build/app//CMakeFiles/progress.marks
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 app/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build/CMakeFiles 0
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/junpinfoo/cmpt433/work/as3/build/CMakeFiles /home/junpinfoo/cmpt433/work/as3/build/app//CMakeFiles/progress.marks
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 app/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/junpinfoo/cmpt433/work/as3/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 app/clean
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 app/clean
 .PHONY : clean
 
 # The main clean target
@@ -103,22 +103,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 app/preinstall
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 app/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 app/preinstall
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 app/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 app/CMakeFiles/beat_box.dir/rule:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 app/CMakeFiles/beat_box.dir/rule
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 app/CMakeFiles/beat_box.dir/rule
 .PHONY : app/CMakeFiles/beat_box.dir/rule
 
 # Convenience name for target.
@@ -127,7 +127,7 @@ beat_box: app/CMakeFiles/beat_box.dir/rule
 
 # fast build rule for target.
 beat_box/fast:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/build
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/build
 .PHONY : beat_box/fast
 
 src/beat_box.o: src/beat_box.c.o
@@ -135,7 +135,7 @@ src/beat_box.o: src/beat_box.c.o
 
 # target to build an object file
 src/beat_box.c.o:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/beat_box.c.o
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/beat_box.c.o
 .PHONY : src/beat_box.c.o
 
 src/beat_box.i: src/beat_box.c.i
@@ -143,7 +143,7 @@ src/beat_box.i: src/beat_box.c.i
 
 # target to preprocess a source file
 src/beat_box.c.i:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/beat_box.c.i
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/beat_box.c.i
 .PHONY : src/beat_box.c.i
 
 src/beat_box.s: src/beat_box.c.s
@@ -151,7 +151,7 @@ src/beat_box.s: src/beat_box.c.s
 
 # target to generate assembly for a file
 src/beat_box.c.s:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/beat_box.c.s
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/beat_box.c.s
 .PHONY : src/beat_box.c.s
 
 src/beat_helper.o: src/beat_helper.c.o
@@ -159,7 +159,7 @@ src/beat_helper.o: src/beat_helper.c.o
 
 # target to build an object file
 src/beat_helper.c.o:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/beat_helper.c.o
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/beat_helper.c.o
 .PHONY : src/beat_helper.c.o
 
 src/beat_helper.i: src/beat_helper.c.i
@@ -167,7 +167,7 @@ src/beat_helper.i: src/beat_helper.c.i
 
 # target to preprocess a source file
 src/beat_helper.c.i:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/beat_helper.c.i
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/beat_helper.c.i
 .PHONY : src/beat_helper.c.i
 
 src/beat_helper.s: src/beat_helper.c.s
@@ -175,7 +175,7 @@ src/beat_helper.s: src/beat_helper.c.s
 
 # target to generate assembly for a file
 src/beat_helper.c.s:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/beat_helper.c.s
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f app/CMakeFiles/beat_box.dir/build.make app/CMakeFiles/beat_box.dir/src/beat_helper.c.s
 .PHONY : src/beat_helper.c.s
 
 # Help Target
@@ -204,6 +204,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

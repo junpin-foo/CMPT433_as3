@@ -1,8 +1,8 @@
 app/CMakeFiles/beat_box.dir/src/beat_helper.c.o: \
- /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/app/src/beat_helper.c \
+ /home/junpinfoo/cmpt433/work/as3/app/src/beat_helper.c \
  /usr/aarch64-linux-gnu/include/stdc-predef.h \
- /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/hal/include/hal/audioMixer.h \
- /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/app/include/beat_helper.h \
+ /home/junpinfoo/cmpt433/work/as3/hal/include/hal/audioMixer.h \
+ /home/junpinfoo/cmpt433/work/as3/app/include/beat_helper.h \
  /usr/aarch64-linux-gnu/include/stdio.h \
  /usr/aarch64-linux-gnu/include/bits/libc-header-start.h \
  /usr/aarch64-linux-gnu/include/features.h \

@@ -1,7 +1,7 @@
 hal/CMakeFiles/hal.dir/src/led.c.o: \
- /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/hal/src/led.c \
+ /home/junpinfoo/cmpt433/work/as3/hal/src/led.c \
  /usr/aarch64-linux-gnu/include/stdc-predef.h \
- /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/hal/include/hal/led.h \
+ /home/junpinfoo/cmpt433/work/as3/hal/include/hal/led.h \
  /usr/aarch64-linux-gnu/include/stdio.h \
  /usr/aarch64-linux-gnu/include/bits/libc-header-start.h \
  /usr/aarch64-linux-gnu/include/features.h \

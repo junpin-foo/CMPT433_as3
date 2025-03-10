@@ -2,6 +2,7 @@
 */
 
 #include "hal/audioMixer.h"
+#include "hal/joystick.h"
 #include "beat_helper.h"
 #include <stdio.h>
 #include <unistd.h>
@@ -13,11 +14,12 @@ int main(void)
 {
 	printf("Beginning play-back of %s\n", SOURCE_FILE);
     printf("Beginning play-back of %s\n", SOURCE_FILE2);
-	AudioMixer_init();
+	// AudioMixer_init();
+    Joystick_initialize();
 
 	// wavedata_t sampleFile;
     // wavedata_t sampleFile2;
-    AudioMixer_setVolume(70);
+    // AudioMixer_setVolume(70);
     // while(1) {
 	// 	// Read source file data in to sampleFile pointer
     //     AudioMixer_readWaveFileIntoMemory(SOURCE_FILE, &sampleFile);
@@ -33,14 +35,15 @@ int main(void)
     // }
 
     while(1) {
-        playHiHat();
+        // playHiHat();
+        Joystick_getReading();
         sleep(1);
     }
 
 
 	// Cleanup, letting the music in buffer play out (drain), then close and free.
     // AudioMixer_freeWaveFileData(&sampleFile);
-    AudioMixer_cleanup();
+    // AudioMixer_cleanup();
 
 	return 0;
 }

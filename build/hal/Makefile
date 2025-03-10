@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/shaoenh/cmpt433/work/myApps/CMPT433_as3
+CMAKE_SOURCE_DIR = /home/junpinfoo/cmpt433/work/as3
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build
+CMAKE_BINARY_DIR = /home/junpinfoo/cmpt433/work/as3/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,14 +87,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build/CMakeFiles /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build/hal//CMakeFiles/progress.marks
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 hal/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build/CMakeFiles 0
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/junpinfoo/cmpt433/work/as3/build/CMakeFiles /home/junpinfoo/cmpt433/work/as3/build/hal//CMakeFiles/progress.marks
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 hal/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/junpinfoo/cmpt433/work/as3/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 hal/clean
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 hal/clean
 .PHONY : clean
 
 # The main clean target
@@ -103,22 +103,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 hal/preinstall
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 hal/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 hal/preinstall
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 hal/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 hal/CMakeFiles/hal.dir/rule:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 hal/CMakeFiles/hal.dir/rule
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 hal/CMakeFiles/hal.dir/rule
 .PHONY : hal/CMakeFiles/hal.dir/rule
 
 # Convenience name for target.
@@ -127,7 +127,7 @@ hal: hal/CMakeFiles/hal.dir/rule
 
 # fast build rule for target.
 hal/fast:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/build
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/build
 .PHONY : hal/fast
 
 src/audioMixer.o: src/audioMixer.c.o
@@ -135,7 +135,7 @@ src/audioMixer.o: src/audioMixer.c.o
 
 # target to build an object file
 src/audioMixer.c.o:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/audioMixer.c.o
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/audioMixer.c.o
 .PHONY : src/audioMixer.c.o
 
 src/audioMixer.i: src/audioMixer.c.i
@@ -143,7 +143,7 @@ src/audioMixer.i: src/audioMixer.c.i
 
 # target to preprocess a source file
 src/audioMixer.c.i:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/audioMixer.c.i
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/audioMixer.c.i
 .PHONY : src/audioMixer.c.i
 
 src/audioMixer.s: src/audioMixer.c.s
@@ -151,15 +151,39 @@ src/audioMixer.s: src/audioMixer.c.s
 
 # target to generate assembly for a file
 src/audioMixer.c.s:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/audioMixer.c.s
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/audioMixer.c.s
 .PHONY : src/audioMixer.c.s
+
+src/gpio.o: src/gpio.c.o
+.PHONY : src/gpio.o
+
+# target to build an object file
+src/gpio.c.o:
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/gpio.c.o
+.PHONY : src/gpio.c.o
+
+src/gpio.i: src/gpio.c.i
+.PHONY : src/gpio.i
+
+# target to preprocess a source file
+src/gpio.c.i:
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/gpio.c.i
+.PHONY : src/gpio.c.i
+
+src/gpio.s: src/gpio.c.s
+.PHONY : src/gpio.s
+
+# target to generate assembly for a file
+src/gpio.c.s:
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/gpio.c.s
+.PHONY : src/gpio.c.s
 
 src/i2c.o: src/i2c.c.o
 .PHONY : src/i2c.o
 
 # target to build an object file
 src/i2c.c.o:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/i2c.c.o
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/i2c.c.o
 .PHONY : src/i2c.c.o
 
 src/i2c.i: src/i2c.c.i
@@ -167,7 +191,7 @@ src/i2c.i: src/i2c.c.i
 
 # target to preprocess a source file
 src/i2c.c.i:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/i2c.c.i
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/i2c.c.i
 .PHONY : src/i2c.c.i
 
 src/i2c.s: src/i2c.c.s
@@ -175,7 +199,7 @@ src/i2c.s: src/i2c.c.s
 
 # target to generate assembly for a file
 src/i2c.c.s:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/i2c.c.s
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/i2c.c.s
 .PHONY : src/i2c.c.s
 
 src/joystick.o: src/joystick.c.o
@@ -183,7 +207,7 @@ src/joystick.o: src/joystick.c.o
 
 # target to build an object file
 src/joystick.c.o:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/joystick.c.o
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/joystick.c.o
 .PHONY : src/joystick.c.o
 
 src/joystick.i: src/joystick.c.i
@@ -191,7 +215,7 @@ src/joystick.i: src/joystick.c.i
 
 # target to preprocess a source file
 src/joystick.c.i:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/joystick.c.i
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/joystick.c.i
 .PHONY : src/joystick.c.i
 
 src/joystick.s: src/joystick.c.s
@@ -199,7 +223,7 @@ src/joystick.s: src/joystick.c.s
 
 # target to generate assembly for a file
 src/joystick.c.s:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/joystick.c.s
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/joystick.c.s
 .PHONY : src/joystick.c.s
 
 src/led.o: src/led.c.o
@@ -207,7 +231,7 @@ src/led.o: src/led.c.o
 
 # target to build an object file
 src/led.c.o:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/led.c.o
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/led.c.o
 .PHONY : src/led.c.o
 
 src/led.i: src/led.c.i
@@ -215,7 +239,7 @@ src/led.i: src/led.c.i
 
 # target to preprocess a source file
 src/led.c.i:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/led.c.i
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/led.c.i
 .PHONY : src/led.c.i
 
 src/led.s: src/led.c.s
@@ -223,7 +247,7 @@ src/led.s: src/led.c.s
 
 # target to generate assembly for a file
 src/led.c.s:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/led.c.s
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(MAKE) $(MAKESILENT) -f hal/CMakeFiles/hal.dir/build.make hal/CMakeFiles/hal.dir/src/led.c.s
 .PHONY : src/led.c.s
 
 # Help Target
@@ -238,6 +262,9 @@ help:
 	@echo "... src/audioMixer.o"
 	@echo "... src/audioMixer.i"
 	@echo "... src/audioMixer.s"
+	@echo "... src/gpio.o"
+	@echo "... src/gpio.i"
+	@echo "... src/gpio.s"
 	@echo "... src/i2c.o"
 	@echo "... src/i2c.i"
 	@echo "... src/i2c.s"
@@ -258,6 +285,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/shaoenh/cmpt433/work/myApps/CMPT433_as3/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/junpinfoo/cmpt433/work/as3/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
