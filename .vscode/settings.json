@@ -2,6 +2,7 @@
     "files.associations": {
         "wave_player.h": "c",
         "unistd.h": "c",
-        "audiomixer.h": "c"
+        "audiomixer.h": "c",
+        "beat_helper.h": "c"
     }
 }

@@ -1,6 +1,6 @@
 # CMake Build Configuration for root of project
 cmake_minimum_required(VERSION 3.18)
-project(reaction_timer VERSION 1.0 DESCRIPTION "reaction timer" LANGUAGES C)
+project(reaction_timer VERSION 1.0 DESCRIPTION "beat_box" LANGUAGES C)
 
 # Compiler options (inherited by sub-folders)
 set(CMAKE_C_STANDARD 11)
@@ -21,4 +21,5 @@ add_link_options(-pthread)
 # What folders to build
 add_subdirectory(hal)  
 add_subdirectory(app)
-
+add_subdirectory(lgpio)
+add_subdirectory(lcd)

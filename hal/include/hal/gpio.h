@@ -34,6 +34,12 @@ int Gpio_waitFor1LineChange(
     struct gpiod_line_bulk *bulkEvents
 );
 
+int Gpio_waitFor2LineChange(
+    struct GpioLine* line1, 
+    struct GpioLine* line2, 
+    struct gpiod_line_bulk *bulkEvents
+);
+
 void Gpio_close(struct GpioLine* line);
 
 #endif

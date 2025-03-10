@@ -5,7 +5,10 @@ file(GLOB MY_SOURCES "src/*.c")
 add_executable(beat_box ${MY_SOURCES})
 
 # Make use of the HAL library
+target_link_libraries(beat_box LINK_PRIVATE gpiod)
 target_link_libraries(beat_box LINK_PRIVATE hal)
+target_link_libraries(beat_box LINK_PRIVATE lcd)
+target_link_libraries(beat_box LINK_PRIVATE lgpio)
 
 # ---------------- NEW! ----------------
 # ALSA support

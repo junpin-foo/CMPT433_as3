@@ -113,3 +113,34 @@ int Gpio_waitFor1LineChange(
     int numEvents = gpiod_line_bulk_num_lines(bulkEvents);
     return numEvents;
 }
+
+// Returns the number of events
+int Gpio_waitFor2LineChange(
+    struct GpioLine* line1, 
+    struct GpioLine* line2, 
+    struct gpiod_line_bulk *bulkEvents
+) {
+    assert(s_isInitialized);
+
+    // Source: https://people.eng.unimelb.edu.au/pbeuchat/asclinic/software/building_block_gpio_encoder_counting.html   
+    struct gpiod_line_bulk bulkWait;
+    gpiod_line_bulk_init(&bulkWait);
+    
+    gpiod_line_bulk_add(&bulkWait, (struct gpiod_line*)line1);
+    gpiod_line_bulk_add(&bulkWait, (struct gpiod_line*)line2);
+    
+    gpiod_line_request_bulk_both_edges_events(&bulkWait, "Event Waiting");
+
+    struct timespec timeout = { 1, 0 }; // 1 second timeout
+    int result = gpiod_line_event_wait_bulk(&bulkWait, &timeout, bulkEvents);
+    if ( result == -1) {
+        perror("Error waiting on lines for event waiting");
+        return -1;
+    }
+    if (result == 0) {
+        return 0;
+    }
+
+    int numEvents = gpiod_line_bulk_num_lines(bulkEvents);
+    return numEvents;
+}

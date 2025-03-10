@@ -36,4 +36,8 @@ This function reads the current joystick position and returns the x and y values
 */
 struct JoystickData Joystick_getReading();
 
+int Joystick_getPageCount();
+
+int Joystick_getVolume();
+
 #endif

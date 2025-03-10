@@ -166,3 +166,11 @@ struct JoystickData Joystick_getReading() {
 
     return data;
 }
+
+int Joystick_getPageCount() {
+    return page_number;
+}
+
+int Joystick_getVolume() {
+    return volume;
+}

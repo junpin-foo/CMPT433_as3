@@ -3,6 +3,7 @@
 
 #include "hal/audioMixer.h"
 #include "hal/joystick.h"
+#include "hal/lcd.h"
 #include "beat_helper.h"
 #include <stdio.h>
 #include <unistd.h>
@@ -16,6 +17,7 @@ int main(void)
     printf("Beginning play-back of %s\n", SOURCE_FILE2);
 	// AudioMixer_init();
     Joystick_initialize();
+    Lcd_init();
 
 	// wavedata_t sampleFile;
     // wavedata_t sampleFile2;
@@ -37,6 +39,7 @@ int main(void)
     while(1) {
         // playHiHat();
         Joystick_getReading();
+        
         sleep(1);
     }
 
