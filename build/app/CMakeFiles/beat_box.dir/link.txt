@@ -1,1 +1,0 @@
-aarch64-linux-gnu-gcc -g -fsanitize=address -pthread CMakeFiles/beat_box.dir/src/beat_box.c.o CMakeFiles/beat_box.dir/src/beat_helper.c.o -o beat_box  ../hal/libhal.a -lasound -lgpiod 
