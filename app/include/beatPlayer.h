@@ -5,9 +5,11 @@
 #define HI_HAT_FILE "wave-files/100053__menegass__gui-drum-cc.wav"
 #define SNARE_FILE "wave-files/100059__menegass__gui-drum-snare-soft.wav"
 
-void beat_helper_init();
-void playHiHat();
-void playBaseDrum();
-void playSnare();
-void beat_helper_cleanup();
+void BeatPlayer_init();
+void BeatPlayer_playHiHat();
+void BeatPlayer_playBaseDrum();
+void BeatPlayer_playSnare();
+void BeatPlayer_setBpm(int newBpm);
+void BeatPlayer_setVolume(int newVolume);
+void BeatPlayer_cleanup();
 #endif
