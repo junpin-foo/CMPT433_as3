@@ -74,6 +74,11 @@ void BeatPlayer_playSnare() {
     AudioMixer_queueSound(&snare);
 }
 
+int BeatPlayer_getBpm() {
+    assert(isInitialized);
+    return bpm;
+}
+
 void BeatPlayer_setBpm(int newBpm) {
     assert(isInitialized);
     pthread_mutex_lock(&beatMutex);
@@ -85,6 +90,11 @@ void BeatPlayer_setBpm(int newBpm) {
         bpm = newBpm;
     }
     pthread_mutex_unlock(&beatMutex);
+}
+
+int BeatPlayer_getVolume() {
+    assert(isInitialized);
+    return AudioMixer_getVolume();
 }
 
 void BeatPlayer_setVolume(int newVolume) {

@@ -13,7 +13,6 @@
 #include <fcntl.h>
 #include <assert.h>
 #include "hal/rotary_encoder_statemachine.h"
-#include "hal/udp_listener.h"
 
 #define PWM_PATH "/dev/hat/pwm/GPIO12/"
 #define NANOSECONDS_IN_1SECOND 1000000000
@@ -25,7 +24,7 @@ atomic_int frequency = 0;
 static bool isInitialized = false;
 static pthread_mutex_t pwm_mutex = PTHREAD_MUTEX_INITIALIZER;
 static pthread_t pwmThread;
-// static volatile bool running = true;
+static volatile bool running = false;
 
 
 static void set_pwm_frequency(int hz) {
@@ -56,7 +55,7 @@ static void set_pwm_frequency(int hz) {
 
 static void *encoder_thread(void *arg) {
     (void)arg; // Suppress unused parameter warning
-    while (UdpListener_isRunning()) {
+    while (running) {
         int counter_value = RotaryEncoderStateMachine_getValue();
         if (counter_value != 0) {
             int new_frequency = frequency + counter_value;
@@ -76,13 +75,14 @@ void PwmRotary_init(void){
     assert(!isInitialized);
     RotaryEncoderStateMachine_init();
     set_pwm_frequency(BASE_FREQUENCY);
+    running = true;
     pthread_create(&pwmThread, NULL, &encoder_thread, NULL);
     isInitialized = true;
 }
 
 void PwmRotary_cleanup(void){
     assert(isInitialized);
-    // running = false;
+    running = false;
     pthread_join(pwmThread, NULL);
     RotaryEncoderStateMachine_cleanup();
     isInitialized = false;

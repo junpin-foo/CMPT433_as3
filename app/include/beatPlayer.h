@@ -9,7 +9,9 @@ void BeatPlayer_init();
 void BeatPlayer_playHiHat();
 void BeatPlayer_playBaseDrum();
 void BeatPlayer_playSnare();
+int BeatPlayer_getBpm();
 void BeatPlayer_setBpm(int newBpm);
+int BeatPlayer_getVolume();
 void BeatPlayer_setVolume(int newVolume);
 void BeatPlayer_cleanup();
 #endif

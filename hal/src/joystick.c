@@ -8,6 +8,7 @@
 #include "hal/joystick.h"
 #include "hal/i2c.h"
 #include "hal/gpio.h"
+#include "hal/audioMixer.h"
 #include <stdbool.h>
 #include <assert.h>
 #include <pthread.h>
@@ -75,10 +76,12 @@ void *joystick_xy_thread_func(void *arg) {
         if (data == JOYSTICK_UP) {
             int new_volume = atomic_load(&volume) + 5;
             if (new_volume <= 100) atomic_store(&volume, new_volume);
+            AudioMixer_setVolume(new_volume);
             printf("UP\n");
         } else if (data == JOYSTICK_DOWN) {
             int new_volume = atomic_load(&volume) - 5;
             if (new_volume >= 0) atomic_store(&volume, new_volume);
+            AudioMixer_setVolume(new_volume);
             printf("DOWN\n");
         }
 

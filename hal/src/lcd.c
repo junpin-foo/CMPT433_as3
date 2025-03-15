@@ -10,7 +10,7 @@
 #include <pthread.h>
 #include <unistd.h>
 #include <updateLcd.h>
-#include <hal/pwm_rotary.h>
+#include "hal/pwm_rotary.h"
 #include "hal/joystick.h"
 
 

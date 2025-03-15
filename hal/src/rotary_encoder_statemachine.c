@@ -3,7 +3,6 @@
 */
 #include "hal/rotary_encoder_statemachine.h"
 #include "hal/gpio.h"
-#include "hal/udp_listener.h"
 
 #include <assert.h>
 #include <stdlib.h>
@@ -23,7 +22,7 @@ static atomic_int counter = 0;
 static bool ccwFlag = false;
 static bool cwFlag = false;
 static pthread_t stateMachineThread;
-// static volatile bool stateMachineRunning = true;
+static volatile bool stateMachineRunning = false;
 
 
 // Function Prototypes 
@@ -125,13 +124,14 @@ void RotaryEncoderStateMachine_init()
     Gpio_initialize();
     s_lineA = Gpio_openForEvents(GPIO_CHIP, GPIO_LINE_A);
     s_lineB = Gpio_openForEvents(GPIO_CHIP, GPIO_LINE_B);
+    stateMachineRunning = true;
     pthread_create(&stateMachineThread, NULL, &RotaryEncoderStateMachine_doState, NULL);
     isInitialized = true;
 }
 void RotaryEncoderStateMachine_cleanup()
 {
     assert(isInitialized);
-    // stateMachineRunning = false;
+    stateMachineRunning = false;
     pthread_join(stateMachineThread, NULL);
     Gpio_close(s_lineA);
     Gpio_close(s_lineB);
@@ -155,7 +155,7 @@ static void* RotaryEncoderStateMachine_doState(void* arg)
     (void)arg; // Suppress unused parameter warning
 
     // printf("\n\nWaiting for an event...\n");
-    while (UdpListener_isRunning()) {
+    while (stateMachineRunning) {
         struct gpiod_line_bulk bulkEvents;
         int numEvents = Gpio_waitFor2LineChange(s_lineA, s_lineB, &bulkEvents);
         if (numEvents == -1) {

@@ -13,6 +13,8 @@
 #include <stdbool.h>
 #include <assert.h>
 
+#include "beatPlayer.h"
+
 #define DELAY_MS 2000
 #define BACKLIGHT 1023
 #define INITIAL_X 5
@@ -25,6 +27,8 @@
 
 static UWORD *s_fb;
 static bool isInitialized = false;
+static char volume[12];
+static char bpm[12];
 
 void UpdateLcd_init()
 {
@@ -79,14 +83,16 @@ void UpdateLcd_withPage(int page)
    switch (page)
     {
         case 1: // Status Screen
+            sprintf(volume, "%d", BeatPlayer_getVolume());
+            sprintf(bpm, "%d", BeatPlayer_getBpm());
             Paint_DrawString_EN(x, y, "Current Beat:", &Font20, WHITE, BLACK);
             y += NEXTLINE_Y;
-            Paint_DrawString_EN(x, y, "currentBeat", &Font24, WHITE, BLACK);
+            Paint_DrawString_EN(x, y, " TEMP currentBeat", &Font24, WHITE, BLACK);
             y += NEXTLINE_Y;
             Paint_DrawString_EN(x, LCD_1IN54_HEIGHT - 40, "Vol:", &Font16, WHITE, BLACK);
-            Paint_DrawString_EN(x + 40, LCD_1IN54_HEIGHT - 40, "volume", &Font16, WHITE, BLACK);
+            Paint_DrawString_EN(x + 40, LCD_1IN54_HEIGHT - 40, volume, &Font16, WHITE, BLACK);
             Paint_DrawString_EN(LCD_1IN54_WIDTH - 80, LCD_1IN54_HEIGHT - 40, "BPM:", &Font16, WHITE, BLACK);
-            Paint_DrawString_EN(LCD_1IN54_WIDTH - 40, LCD_1IN54_HEIGHT - 40, "bpm", &Font16, WHITE, BLACK);
+            Paint_DrawString_EN(LCD_1IN54_WIDTH - 40, LCD_1IN54_HEIGHT - 40, bpm, &Font16, WHITE, BLACK);
             break;
 
         case 2: // Audio Timing Summary
