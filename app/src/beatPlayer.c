@@ -13,6 +13,7 @@
 #define DEFAULT_BPM 120
 #define MIN_BPM 40
 #define MAX_BPM 300
+#define DEFAULT_DELAY_MS 100
 
 #define DEFAULT_VOLUME 80
 #define MIN_VOLUME 0
@@ -20,11 +21,16 @@
 #define BPM_PER_SPIN 5
 #define MIN_COUNTER_ROTARY_ENCODER -16
 #define MAX_COUNTER_ROTARY_ENCODER 36
+#define NONE_MODE 0
+#define ROCK_MODE 1
+#define CUSTOM_MODE 2
+#define HALF_BEAT_RATIO ((60*1000)/2)
+#define ROCK_BEAT_STRUCT_SIZE 8
+#define CUSTOM_BEAT_STRUCT_SIZE 4
 
-static int volumn = DEFAULT_VOLUME;
+static atomic_int volumn = DEFAULT_VOLUME;
 static atomic_int bpm = DEFAULT_BPM;
 static atomic_int beatMode = 1; // 1 = Rock, 2 = Custom, 0 = None
-static atomic_int rotaryEncouderCounter = 0;
 static bool isRunning = true;
 static pthread_t beatThread;
 static pthread_t bmpThread;
@@ -32,52 +38,73 @@ static wavedata_t hiHat;
 static wavedata_t baseDrum;
 static wavedata_t snare;
 static bool isInitialized = false;
+static atomic_int halfBeatTimeMs = 0;
+
+static Beat rockBeat[ROCK_BEAT_STRUCT_SIZE] = {
+    {true,  true,  false}, // 1   - Hi-Hat & Bass Drum
+    {true,  false, false}, // 1.5 - Hi-Hat
+    {true,  false, true }, // 2   - Hi-Hat & Snare
+    {true,  false, false}, // 2.5 - Hi-Hat
+    {true,  true,  false}, // 3   - Hi-Hat & Bass Drum
+    {true,  false, false}, // 3.5 - Hi-Hat
+    {true,  false, true }, // 4   - Hi-Hat & Snare
+    {true,  false, false}  // 4.5 - Hi-Hat
+};
+
+static Beat customBeat[CUSTOM_BEAT_STRUCT_SIZE] = {
+    {false, true,  false}, // 1   - Bass Drum
+    {false, false, true }, // 1.5 - Snare
+    {true,  false, false}, // 2   - Hi-Hat
+    {true,  true,  false}  // 2.5 - Hi-Hat & Bass Drum
+};
 
 static void* beatThreadFunction(void* args);
 static void* beatThreadDetectBPM(void* args);
-static void BeatPlayer_playRockBeat(struct timespec halfBeatTime);
-static void BeatPlayer_playCustomBeat(struct timespec halfBeatTime);
-static void BeatPlayer_computeBPM();
-// Initialize to play the rock beat
+static void BeatPlayer_playRockBeat();
+static void BeatPlayer_playCustomBeat();
+static void BeatPlayer_detectRotarySpin();
+static void sleepForMs(long long delayInMs);
 
-static void sleepForMs(long long delayInMs) { 
-    const long long NS_PER_MS = 1000 * 1000;
-    const long long NS_PER_SECOND = 1000000000; 
-    long long delayNs = delayInMs * NS_PER_MS;  
-    int seconds = delayNs / NS_PER_SECOND;  
-    int nanoseconds = delayNs % NS_PER_SECOND;  
-    struct timespec reqDelay = {seconds, nanoseconds}; 
-    nanosleep(&reqDelay, (struct timespec *) NULL); 
-}
 void BeatPlayer_init() {
     assert(!isInitialized);
     beatMode = 1;
+    halfBeatTimeMs = (HALF_BEAT_RATIO / bpm); 
     AudioMixer_init();
+    RotaryEncoderStateMachine_init();
+    BtnStateMachine_init();
+    isInitialized = true;
     AudioMixer_readWaveFileIntoMemory(HI_HAT_FILE, &hiHat);
     AudioMixer_readWaveFileIntoMemory(BASE_DRUM_FILE, &baseDrum);
     AudioMixer_readWaveFileIntoMemory(SNARE_FILE, &snare);
-    isInitialized = true;
-    RotaryEncoderStateMachine_init();
-    BtnStateMachine_init();
     pthread_create(&beatThread, NULL, &beatThreadFunction, NULL);
     pthread_create(&bmpThread, NULL, &beatThreadDetectBPM, NULL);
+}
+
+void BeatPlayer_cleanup() {
+    assert(isInitialized);
+    isRunning = false;
+    pthread_join(beatThread, NULL);
+    pthread_join(bmpThread, NULL);
+    AudioMixer_freeWaveFileData(&hiHat);
+    AudioMixer_freeWaveFileData(&baseDrum);
+    AudioMixer_freeWaveFileData(&snare);
+    AudioMixer_cleanup();
+    BtnStateMachine_cleanup();
+    RotaryEncoderStateMachine_cleanup();
+    isInitialized = false;
 }
 
 static void* beatThreadFunction(void* args) {
     (void) args;
     assert(isInitialized);
-    struct timespec halfBeatTime;
     while (isRunning) {
-        int delayMs = (60 * 1000) / bpm / 2;                 // Calculate half-beat time in ms
-        halfBeatTime.tv_sec  = delayMs / 1000;               // Convert ms to full seconds
-        halfBeatTime.tv_nsec = (delayMs % 1000) * 1000000L;  // Convert remaining ms to ns
         beatMode = BtnStateMachine_getValue();
-        if (beatMode == 1) { // Rock Beat
-            BeatPlayer_playRockBeat(halfBeatTime);
-        } else if (beatMode == 2) { // Custom Beat
-            BeatPlayer_playCustomBeat(halfBeatTime);
+        if (beatMode == ROCK_MODE) { // Rock Beat
+            BeatPlayer_playRockBeat();
+        } else if (beatMode == CUSTOM_MODE) { // Custom Beat
+            BeatPlayer_playCustomBeat();
         } else {
-            sleepForMs(100);
+            sleepForMs(DEFAULT_DELAY_MS);
         }
     }
     return NULL;
@@ -87,8 +114,8 @@ static void *beatThreadDetectBPM(void *args) {
     (void) args;
     assert(isInitialized);
     while (isRunning) {
-        BeatPlayer_computeBPM();
-        sleepForMs(500);
+        BeatPlayer_detectRotarySpin();
+        sleepForMs(DEFAULT_DELAY_MS);
     }
     return NULL;
 }
@@ -150,22 +177,20 @@ int BeatPlayer_getBeatMode() {
     return beatMode;
 }
 
-static void BeatPlayer_computeBPM() {
+static void BeatPlayer_detectRotarySpin() {
     assert(isInitialized);
-    int new_rotaryEncouderCounter = RotaryEncoderStateMachine_getValue();
-    if (new_rotaryEncouderCounter != rotaryEncouderCounter) {
-        rotaryEncouderCounter = new_rotaryEncouderCounter;
-        int new_bpm = DEFAULT_BPM + rotaryEncouderCounter * BPM_PER_SPIN;
-        if (new_bpm < MIN_BPM) {
-            bpm = MIN_BPM;
-            RotaryEncoderStateMachine_setValue(MIN_COUNTER_ROTARY_ENCODER);
-        } else if (new_bpm > MAX_BPM) {
-            bpm = MAX_BPM;
-            RotaryEncoderStateMachine_setValue(MAX_COUNTER_ROTARY_ENCODER);
-        } else {
-            bpm = new_bpm;
-        }
+    int rotaryEncouderCounter = RotaryEncoderStateMachine_getValue();
+    int new_bpm = DEFAULT_BPM + rotaryEncouderCounter * BPM_PER_SPIN;
+    if (new_bpm < MIN_BPM) {
+        bpm = MIN_BPM;
+        RotaryEncoderStateMachine_setValue(MIN_COUNTER_ROTARY_ENCODER);
+    } else if (new_bpm > MAX_BPM) {
+        bpm = MAX_BPM;
+        RotaryEncoderStateMachine_setValue(MAX_COUNTER_ROTARY_ENCODER);
+    } else {
+        bpm = new_bpm;
     }
+    halfBeatTimeMs = (HALF_BEAT_RATIO / bpm);
 }
 
 void BeatPlayer_setBPM(int newBpm) {
@@ -176,69 +201,63 @@ void BeatPlayer_setBPM(int newBpm) {
         newBpm = MAX_BPM;
     }
     bpm = newBpm;
-    RotaryEncoderStateMachine_setValue((bpm - DEFAULT_BPM) / 5);
+    halfBeatTimeMs = (HALF_BEAT_RATIO / bpm);
+    RotaryEncoderStateMachine_setValue((bpm - DEFAULT_BPM) / BPM_PER_SPIN);
 }
 
-static void BeatPlayer_playRockBeat(struct timespec halfBeatTime) {
+static void BeatPlayer_playRockBeat() {
     assert(isInitialized);
-    // 1
-    BeatPlayer_playHiHat(); 
-    BeatPlayer_playBaseDrum(); 
-    nanosleep(&halfBeatTime, NULL); // Sleep for the calculated time
-    // 1.5
-    BeatPlayer_playHiHat(); 
-    nanosleep(&halfBeatTime, NULL); // Sleep for the calculated time
-    // 2
-    BeatPlayer_playHiHat(); 
-    BeatPlayer_playSnare(); 
-    nanosleep(&halfBeatTime, NULL); // Sleep for the calculated time
-    // 2.5
-    BeatPlayer_playHiHat(); 
-    nanosleep(&halfBeatTime, NULL); // Sleep for the calculated time
-    // 3
-    BeatPlayer_playHiHat();
-    BeatPlayer_playBaseDrum(); 
-    nanosleep(&halfBeatTime, NULL); // Sleep for the calculated time
-    // 3.5
-    BeatPlayer_playHiHat(); 
-    nanosleep(&halfBeatTime, NULL); // Sleep for the calculated time
-    // 4
-    BeatPlayer_playHiHat(); 
-    BeatPlayer_playSnare(); 
-    nanosleep(&halfBeatTime, NULL); // Sleep for the calculated time
-    // 4.5
-    BeatPlayer_playHiHat(); 
-    nanosleep(&halfBeatTime, NULL); // Sleep for the calculated time
+    for (int i = 0; i < ROCK_BEAT_STRUCT_SIZE; i++) {
+        // Play Hi-Hat if specified
+        if (rockBeat[i].playHiHat) {
+            BeatPlayer_playHiHat();
+        }
+
+        // Play Bass Drum if specified
+        if (rockBeat[i].playBaseDrum) {
+            BeatPlayer_playBaseDrum();
+        }
+
+        // Play Snare if specified
+        if (rockBeat[i].playSnare) {
+            BeatPlayer_playSnare();
+        }
+
+        // Sleep for the calculated half-beat time
+        sleepForMs(halfBeatTimeMs);
+    }
 }
 
-// I might change it later to make it more distinct with the Rock Beat
-static void BeatPlayer_playCustomBeat(struct timespec halfBeatTime) {
+static void BeatPlayer_playCustomBeat() {
     assert(isInitialized);
-    BeatPlayer_playBaseDrum(); 
-    nanosleep(&halfBeatTime, NULL); // Sleep for the calculated time
+    for (int i = 0; i < CUSTOM_BEAT_STRUCT_SIZE; i++) {
+        // Play Hi-Hat if specified
+        if (customBeat[i].playHiHat) {
+            BeatPlayer_playHiHat();
+        }
 
-    BeatPlayer_playSnare(); 
-    nanosleep(&halfBeatTime, NULL); // Sleep for the calculated time
+        // Play Bass Drum if specified
+        if (customBeat[i].playBaseDrum) {
+            BeatPlayer_playBaseDrum();
+        }
 
-    BeatPlayer_playHiHat(); 
-    nanosleep(&halfBeatTime, NULL); // Sleep for the calculated time
+        // Play Snare if specified
+        if (customBeat[i].playSnare) {
+            BeatPlayer_playSnare();
+        }
 
-    BeatPlayer_playHiHat(); 
-    BeatPlayer_playBaseDrum(); 
-    nanosleep(&halfBeatTime, NULL); // Sleep for the calculated time
+        // Sleep for the calculated half-beat time
+        sleepForMs(halfBeatTimeMs);
+    }
 }
 
-void BeatPlayer_cleanup() {
-    assert(isInitialized);
-    isRunning = false;
-    pthread_join(beatThread, NULL);
-    pthread_join(bmpThread, NULL);
-    AudioMixer_cleanup();
-    AudioMixer_freeWaveFileData(&hiHat);
-    AudioMixer_freeWaveFileData(&baseDrum);
-    AudioMixer_freeWaveFileData(&snare);
-    BtnStateMachine_cleanup();
-    RotaryEncoderStateMachine_cleanup();
-    isInitialized = false;
+// Helper function to sleep for ms 
+static void sleepForMs(long long delayInMs) { 
+    const long long NS_PER_MS = 1000 * 1000;
+    const long long NS_PER_SECOND = 1000000000; 
+    long long delayNs = delayInMs * NS_PER_MS;  
+    int seconds = delayNs / NS_PER_SECOND;  
+    int nanoseconds = delayNs % NS_PER_SECOND;  
+    struct timespec reqDelay = {seconds, nanoseconds}; 
+    nanosleep(&reqDelay, (struct timespec *) NULL); 
 }
-
