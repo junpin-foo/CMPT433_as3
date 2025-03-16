@@ -18,7 +18,7 @@ int main(void)
     Joystick_initialize();
     Accelerometer_initialize();
     TerminalOutput_init();
-    // Lcd_init();
+    Lcd_init();
     UdpListener_init();
     while(UdpListener_isRunning()) {
         Joystick_getReading();   
@@ -27,7 +27,7 @@ int main(void)
         nanosleep(&reqDelay, (struct timespec *) NULL);
     }
     UdpListener_cleanup();
-    // Lcd_cleanup();
+    Lcd_cleanup();
     TerminalOutput_cleanup();
     Accelerometer_cleanUp();
     Joystick_cleanUp();

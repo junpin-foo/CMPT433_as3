@@ -29,6 +29,7 @@
 static UWORD *s_fb;
 static bool isInitialized = false;
 static char volume[12];
+static char beatMode[12];
 static char bpm[12];
 static char minAudioMs[12];
 static char maxAudioMs[12];
@@ -88,15 +89,22 @@ void UpdateLcd_withPage(int page)
     Paint_Clear(WHITE);
     Period_statistics_t audioStat = TerminalOutput_getAudioStats();
     Period_statistics_t accelStat = TerminalOutput_getAccelStats();
-
-   switch (page)
+    int beatModeNum = BeatPlayer_getBeatMode();
+    switch (page)
     {
         case 1: // Status Screen
+            if (beatModeNum == 0) {
+                sprintf(beatMode, "%s", "None");
+            } else if (beatModeNum == 1) {
+                sprintf(beatMode, "%s", "Rock");
+            } else {
+                sprintf(beatMode, "%s", "Custom");
+            }
             sprintf(volume, "%d", BeatPlayer_getVolume());
             sprintf(bpm, "%d", BeatPlayer_getBpm());
             Paint_DrawString_EN(x, y, "Current Beat:", &Font20, WHITE, BLACK);
             y += NEXTLINE_Y;
-            Paint_DrawString_EN(x, y, " TEMP currentBeat", &Font24, WHITE, BLACK);
+            Paint_DrawString_EN(x, y, beatMode, &Font24, WHITE, BLACK);
             y += NEXTLINE_Y;
             Paint_DrawString_EN(x, LCD_1IN54_HEIGHT - 40, "Vol:", &Font16, WHITE, BLACK);
             Paint_DrawString_EN(x + 40, LCD_1IN54_HEIGHT - 40, volume, &Font16, WHITE, BLACK);

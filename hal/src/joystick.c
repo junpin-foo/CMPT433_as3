@@ -8,7 +8,7 @@
 #include "hal/joystick.h"
 #include "hal/i2c.h"
 #include "hal/gpio.h"
-#include "hal/audioMixer.h"
+#include "beatPlayer.h"
 #include <stdbool.h>
 #include <assert.h>
 #include <pthread.h>
@@ -30,7 +30,7 @@ struct GpioLine* s_line = NULL;
 static int i2c_file_desc = -1;
 static bool isInitialized = false;
 
-static atomic_int volume = 50;
+static atomic_int volume = 80;
 static atomic_int page_number = 1;
 
 static pthread_t xy_thread, button_thread;
@@ -84,17 +84,17 @@ void *joystick_xy_thread_func(void *arg) {
         if (data == JOYSTICK_UP) {
             int new_volume = atomic_load(&volume) + 5;
             if (new_volume <= 100) atomic_store(&volume, new_volume);
-            AudioMixer_setVolume(new_volume);
-            // printf("UP\n");
+            BeatPlayer_setVolume(new_volume);
+            printf("UP\n");
         } else if (data == JOYSTICK_DOWN) {
             int new_volume = atomic_load(&volume) - 5;
             if (new_volume >= 0) atomic_store(&volume, new_volume);
-            AudioMixer_setVolume(new_volume);
-            // printf("DOWN\n");
+            BeatPlayer_setVolume(new_volume);
+            printf("DOWN\n");
         }
 
-        struct timespec reqDelay = {0, 10000000};
-        nanosleep(&reqDelay, (struct timespec *) NULL); // 10ms delay
+        struct timespec reqDelay = {0, 100000000};
+        nanosleep(&reqDelay, (struct timespec *) NULL); // 100ms delay
     }
     return NULL;
 }
