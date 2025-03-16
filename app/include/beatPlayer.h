@@ -56,7 +56,5 @@ void BeatPlayer_setVolume(int newVolume);
 int BeatPlayer_getBeatMode();
 void BeatPlayer_setBeatMode(int mode);
 
-// Get the audio timing stat.
-Period_statistics_t BeatPlayer_getAudioTimeing();
 
 #endif

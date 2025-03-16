@@ -8,7 +8,6 @@
 #include <limits.h>
 #include <alloca.h> // needed for mixer
 
-
 static snd_pcm_t *handle;
 
 #define DEFAULT_VOLUME 80
@@ -328,6 +327,7 @@ void* playbackThread(void* _arg)
 {
 	(void)_arg;
 	while (!stopping) {
+		Period_markEvent(PERIOD_EVENT_SAMPLE_SOUND);
 		// Generate next block of audio
 		fillPlaybackBuffer(playbackBuffer, playbackBufferSize);
 
@@ -352,4 +352,11 @@ void* playbackThread(void* _arg)
 	}
 
 	return NULL;
+}
+
+// Get the audio timing stat.
+Period_statistics_t AudioMixer_getAudioStat() {
+    Period_statistics_t stats;
+    Period_getStatisticsAndClear(PERIOD_EVENT_SAMPLE_SOUND, &stats);
+    return stats;
 }

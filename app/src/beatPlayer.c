@@ -122,19 +122,16 @@ static void *beatThreadDetectBPM(void *args) {
 
 void BeatPlayer_playHiHat() {
     assert(isInitialized);
-    Period_markEvent(PERIOD_EVENT_SAMPLE_SOUND);
     AudioMixer_queueSound(&hiHat);
 }
 
 void BeatPlayer_playBaseDrum() {
     assert(isInitialized);
-    Period_markEvent(PERIOD_EVENT_SAMPLE_SOUND);
     AudioMixer_queueSound(&baseDrum);
 }
 
 void BeatPlayer_playSnare() {
     assert(isInitialized);
-    Period_markEvent(PERIOD_EVENT_SAMPLE_SOUND);
     AudioMixer_queueSound(&snare);
 }
 
@@ -163,13 +160,6 @@ void BeatPlayer_setBeatMode(int mode) {
     assert(isInitialized);
     BtnStateMachine_setValue(mode);
     beatMode = mode;
-}
-
-Period_statistics_t BeatPlayer_getAudioTimeing() {
-    assert(isInitialized);
-    Period_statistics_t stats;
-    Period_getStatisticsAndClear(PERIOD_EVENT_SAMPLE_SOUND, &stats);
-    return stats;
 }
 
 int BeatPlayer_getBeatMode() {

@@ -2,6 +2,7 @@
 // to be mixed together and played without jitter.
 #ifndef AUDIO_MIXER_H
 #define AUDIO_MIXER_H
+#include "periodTimer.h"
 
 typedef struct {
 	int numSamples;
@@ -29,5 +30,7 @@ void AudioMixer_queueSound(wavedata_t *pSound);
 // http://stackoverflow.com/questions/6787318/set-alsa-master-volume-from-c-code
 int  AudioMixer_getVolume();
 void AudioMixer_setVolume(int newVolume);
+
+Period_statistics_t AudioMixer_getAudioStat();
 
 #endif
