@@ -1,15 +1,3 @@
-/* udp_listner.c
- * This file implements a UDP listener that listens for commands from a client and responds with the requested data.
- * The listener listens on port 12345 and supports the following commands:
- * - help: list of commands and summary
- * - count: Return the total number of light samples taken so far
- * - length: Return how many samples were captured during the previous second
- * - dips: Return how many dips were detected during the previous second’s samples
- * - history: Return all the data samples from the previous second
- * - stop: Exit the program
- * The listener runs in a separate thread and uses the Sampler module to get the required data.
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -19,9 +7,7 @@
 #include <stdatomic.h> 
 #include <stdbool.h>
 #include <assert.h>
-
 #include "beatPlayer.h"
-
 
 #define PORT 12345
 #define BUFFER_SIZE 1024

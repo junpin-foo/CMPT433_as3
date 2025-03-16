@@ -25,19 +25,20 @@
 #define DIPS_X 120
 #define MAX_MS_X 160
 #define VALUE_OFFSET 40
+#define statBufferSize 12
 
 static UWORD *s_fb;
 static bool isInitialized = false;
-static char volume[12];
-static char beatMode[12];
-static char bpm[12];
-static char minAudioMs[12];
-static char maxAudioMs[12];
-static char avgAudioMs[12]; 
+static char volume[statBufferSize];
+static char beatMode[statBufferSize];
+static char bpm[statBufferSize];
+static char minAudioMs[statBufferSize];
+static char maxAudioMs[statBufferSize];
+static char avgAudioMs[statBufferSize]; 
 
-static char minAccelMs[12];
-static char maxAccelMs[12];
-static char avgAccelMs[12];
+static char minAccelMs[statBufferSize];
+static char maxAccelMs[statBufferSize];
+static char avgAccelMs[statBufferSize];
 
 void UpdateLcd_init()
 {
@@ -93,9 +94,9 @@ void UpdateLcd_withPage(int page)
     switch (page)
     {
         case 1: // Status Screen
-            if (beatModeNum == 0) {
+            if (beatModeNum == NONE_MODE) {
                 sprintf(beatMode, "%s", "None");
-            } else if (beatModeNum == 1) {
+            } else if (beatModeNum == ROCK_MODE) {
                 sprintf(beatMode, "%s", "Rock");
             } else {
                 sprintf(beatMode, "%s", "Custom");
@@ -106,16 +107,16 @@ void UpdateLcd_withPage(int page)
             y += NEXTLINE_Y;
             Paint_DrawString_EN(x, y, beatMode, &Font24, WHITE, BLACK);
             y += NEXTLINE_Y;
-            Paint_DrawString_EN(x, LCD_1IN54_HEIGHT - 40, "Vol:", &Font16, WHITE, BLACK);
-            Paint_DrawString_EN(x + 40, LCD_1IN54_HEIGHT - 40, volume, &Font16, WHITE, BLACK);
-            Paint_DrawString_EN(LCD_1IN54_WIDTH - 80, LCD_1IN54_HEIGHT - 40, "BPM:", &Font16, WHITE, BLACK);
-            Paint_DrawString_EN(LCD_1IN54_WIDTH - 40, LCD_1IN54_HEIGHT - 40, bpm, &Font16, WHITE, BLACK);
+            Paint_DrawString_EN(x, LCD_1IN54_HEIGHT - VALUE_OFFSET, "Vol:", &Font16, WHITE, BLACK);
+            Paint_DrawString_EN(x + VALUE_OFFSET, LCD_1IN54_HEIGHT - VALUE_OFFSET, volume, &Font16, WHITE, BLACK);
+            Paint_DrawString_EN(LCD_1IN54_WIDTH - (VALUE_OFFSET * 2), LCD_1IN54_HEIGHT - VALUE_OFFSET, "BPM:", &Font16, WHITE, BLACK);
+            Paint_DrawString_EN(LCD_1IN54_WIDTH - VALUE_OFFSET, LCD_1IN54_HEIGHT - VALUE_OFFSET, bpm, &Font16, WHITE, BLACK);
             break;
 
         case 2: // Audio Timing Summary
-            sprintf(minAudioMs, "%f", audioStat.minPeriodInMs);
-            sprintf(maxAudioMs, "%f", audioStat.maxPeriodInMs);
-            sprintf(avgAudioMs, "%f", audioStat.avgPeriodInMs);
+            sprintf(minAudioMs, "%.3f ms", audioStat.minPeriodInMs);
+            sprintf(maxAudioMs, "%.3f ms", audioStat.maxPeriodInMs);
+            sprintf(avgAudioMs, "%.3f ms", audioStat.avgPeriodInMs);
             Paint_DrawString_EN(x, y, "Audio Timing", &Font20, WHITE, BLACK);
             y += NEXTLINE_Y;
             Paint_DrawString_EN(x, y, "Min: ", &Font16, WHITE, BLACK);
@@ -129,9 +130,9 @@ void UpdateLcd_withPage(int page)
             break;
 
         case 3: // Accelerometer Timing Summary
-            sprintf(minAccelMs, "%f", accelStat.minPeriodInMs);
-            sprintf(maxAccelMs, "%f", accelStat.maxPeriodInMs);
-            sprintf(avgAccelMs, "%f", accelStat.avgPeriodInMs);
+            sprintf(minAccelMs, "%.3f ms", accelStat.minPeriodInMs);
+            sprintf(maxAccelMs, "%.3f ms", accelStat.maxPeriodInMs);
+            sprintf(avgAccelMs, "%.3f ms", accelStat.avgPeriodInMs);
             Paint_DrawString_EN(x, y, "Accel. Timing", &Font20, WHITE, BLACK);
             y += NEXTLINE_Y;
             Paint_DrawString_EN(x, y, "Min: ", &Font16, WHITE, BLACK);
@@ -148,7 +149,6 @@ void UpdateLcd_withPage(int page)
             Paint_DrawString_EN(x, y, "Invalid Page", &Font20, WHITE, BLACK);
             break;
     }
-
 
     // Send the RAM frame buffer to the LCD (actually display it)
     LCD_1IN54_Display(s_fb);

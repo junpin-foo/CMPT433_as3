@@ -85,12 +85,10 @@ void *joystick_xy_thread_func(void *arg) {
             int new_volume = atomic_load(&volume) + 5;
             if (new_volume <= 100) atomic_store(&volume, new_volume);
             BeatPlayer_setVolume(new_volume);
-            printf("UP\n");
         } else if (data == JOYSTICK_DOWN) {
             int new_volume = atomic_load(&volume) - 5;
             if (new_volume >= 0) atomic_store(&volume, new_volume);
             BeatPlayer_setVolume(new_volume);
-            printf("DOWN\n");
         }
 
         struct timespec reqDelay = {0, 100000000};

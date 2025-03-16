@@ -1,11 +1,10 @@
-/*
- * BEAT_HELPER_H
+/* beatPlayer.h
  * 
  * This header file defines the necessary functions and structures to implement a 
  * beat player system that controls the playback of drum sounds (Hi-Hat, Bass Drum, Snare).
  * The `BeatPlayer_init()` function must be called before using any other functions 
  * in this module, as it initializes the necessary components (such as the audio mixer, 
- * file loading, and state machines) for playing sounds.
+ * file loading, and state machines) and starting a thread to repeately play the chosen beats.
  * 
  * The module uses sound files for different drum sounds. These files must be available 
  * at the specified locations (e.g., "wave-files/100051__menegass__gui-drum-bd-hard.wav" 
@@ -19,11 +18,15 @@
 
 #ifndef BEAT_HELPER_H
 #define BEAT_HELPER_H
+#include "periodTimer.h"
+#include <stdbool.h>
+
 #define BASE_DRUM_FILE "wave-files/100051__menegass__gui-drum-bd-hard.wav"
 #define HI_HAT_FILE "wave-files/100053__menegass__gui-drum-cc.wav"
 #define SNARE_FILE "wave-files/100059__menegass__gui-drum-snare-soft.wav"
-#include "periodTimer.h"
-#include <stdbool.h>
+#define NONE_MODE 0
+#define ROCK_MODE 1
+#define CUSTOM_MODE 2
 
 // Structure to store a single step of a beat pattern.
 // Each step can include up to three drum sounds: Hi-Hat, Bass Drum, and Snare.

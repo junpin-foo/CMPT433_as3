@@ -107,17 +107,17 @@ void *Accelerometer_thread_func(void *arg) {
         clock_gettime(CLOCK_MONOTONIC, &now);
         // printf("dx: %d, dy: %d, dz: %d\n", dx, dy, dz);
         if (dx > 2000  && time_diff_ms(&last_x_time, &now) > DEBOUNCE_TIME_MS) {
-            printf("x detected!\n");
+            // printf("x detected!\n");
             BeatPlayer_playHiHat();
             last_x_time = now;
         }
         if (dy > 2000  && time_diff_ms(&last_y_time, &now) > DEBOUNCE_TIME_MS) {
-            printf("y detected!\n");
+            // printf("y detected!\n");
             BeatPlayer_playSnare();
             last_y_time = now;
         }
         if (dz > 4000 && time_diff_ms(&last_z_time, &now) > DEBOUNCE_TIME_MS) {
-            printf("z detected!\n");
+            // printf("z detected!\n");
             BeatPlayer_playBaseDrum();
             last_z_time = now;
         }

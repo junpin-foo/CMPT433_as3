@@ -318,6 +318,7 @@ static void fillPlaybackBuffer(short *buff, int size)
 			 }
 		 }
 	 }
+	 Period_markEvent(PERIOD_EVENT_SAMPLE_SOUND);
 	 pthread_mutex_unlock(&audioMutex);
 	
 }
@@ -327,7 +328,6 @@ void* playbackThread(void* _arg)
 {
 	(void)_arg;
 	while (!stopping) {
-		Period_markEvent(PERIOD_EVENT_SAMPLE_SOUND);
 		// Generate next block of audio
 		fillPlaybackBuffer(playbackBuffer, playbackBufferSize);
 
