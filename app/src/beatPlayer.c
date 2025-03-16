@@ -233,10 +233,10 @@ void BeatPlayer_cleanup() {
     isRunning = false;
     pthread_join(beatThread, NULL);
     pthread_join(bmpThread, NULL);
+    AudioMixer_cleanup();
     AudioMixer_freeWaveFileData(&hiHat);
     AudioMixer_freeWaveFileData(&baseDrum);
     AudioMixer_freeWaveFileData(&snare);
-    AudioMixer_cleanup();
     BtnStateMachine_cleanup();
     RotaryEncoderStateMachine_cleanup();
     isInitialized = false;
