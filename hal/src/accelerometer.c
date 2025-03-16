@@ -69,7 +69,7 @@ void Accelerometer_initialize(void) {
     // write_i2c_reg8(i2c_file_desc, REG_CTRL4, 0x01);  //Data-Ready is routed to INT1 pad
     // write_i2c_reg8(i2c_file_desc, REG_CTRL5, 0x01);
     // write_i2c_reg8(i2c_file_desc, REG_CTRL6, 0x24); //+8g
-    write_i2c_reg8(i2c_file_desc, REG_CTRL6, 0x00); //+2g
+    // write_i2c_reg8(i2c_file_desc, REG_CTRL6, 0x00); //+2g
     // write_i2c_reg8(i2c_file_desc, REG_CTRL2, 0x40); //soft reset
 
     // uint8_t fifo_config = (0x00 << 3) | (0x00);  // FMode = 110, FTH = 0x0A
@@ -106,18 +106,18 @@ void *Accelerometer_thread_func(void *arg) {
         struct timespec now;
         clock_gettime(CLOCK_MONOTONIC, &now);
         // printf("dx: %d, dy: %d, dz: %d\n", dx, dy, dz);
-        if (dx > 1700  && time_diff_ms(&last_x_time, &now) > DEBOUNCE_TIME_MS) {
-            // printf("x detected!\n");
+        if (dx > 2000  && time_diff_ms(&last_x_time, &now) > DEBOUNCE_TIME_MS) {
+            printf("x detected!\n");
             BeatPlayer_playHiHat();
             last_x_time = now;
         }
         if (dy > 2000  && time_diff_ms(&last_y_time, &now) > DEBOUNCE_TIME_MS) {
-            // printf("y detected!\n");
+            printf("y detected!\n");
             BeatPlayer_playSnare();
             last_y_time = now;
         }
-        if (dz > 1000 && time_diff_ms(&last_z_time, &now) > DEBOUNCE_TIME_MS) {
-            // printf("z detected!\n");
+        if (dz > 4000 && time_diff_ms(&last_z_time, &now) > DEBOUNCE_TIME_MS) {
+            printf("z detected!\n");
             BeatPlayer_playBaseDrum();
             last_z_time = now;
         }

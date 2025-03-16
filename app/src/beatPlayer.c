@@ -39,6 +39,16 @@ static void BeatPlayer_playRockBeat(struct timespec halfBeatTime);
 static void BeatPlayer_playCustomBeat(struct timespec halfBeatTime);
 static void BeatPlayer_computeBPM();
 // Initialize to play the rock beat
+
+static void sleepForMs(long long delayInMs) { 
+    const long long NS_PER_MS = 1000 * 1000;
+    const long long NS_PER_SECOND = 1000000000; 
+    long long delayNs = delayInMs * NS_PER_MS;  
+    int seconds = delayNs / NS_PER_SECOND;  
+    int nanoseconds = delayNs % NS_PER_SECOND;  
+    struct timespec reqDelay = {seconds, nanoseconds}; 
+    nanosleep(&reqDelay, (struct timespec *) NULL); 
+}
 void BeatPlayer_init() {
     assert(!isInitialized);
     beatMode = 1;
@@ -66,6 +76,8 @@ static void* beatThreadFunction(void* args) {
             BeatPlayer_playRockBeat(halfBeatTime);
         } else if (beatMode == 2) { // Custom Beat
             BeatPlayer_playCustomBeat(halfBeatTime);
+        } else {
+            sleepForMs(100);
         }
     }
     return NULL;
@@ -76,6 +88,7 @@ static void *beatThreadDetectBPM(void *args) {
     assert(isInitialized);
     while (isRunning) {
         BeatPlayer_computeBPM();
+        sleepForMs(500);
     }
     return NULL;
 }

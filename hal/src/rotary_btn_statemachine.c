@@ -48,7 +48,6 @@ static void on_release(void)
 
     if(time_diff_ms(&last_btn_time, &now) > DEBOUNCE_TIME_MS) {
         int new_counter = (atomic_load(&counter) + 1) % 3;
-        // printf("Button counter (BEAT): %d\n", new_counter);
         atomic_store(&counter, new_counter);
         last_btn_time = now;
     }

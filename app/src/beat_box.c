@@ -11,6 +11,15 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <time.h>
+static void sleepForMs(long long delayInMs) { 
+    const long long NS_PER_MS = 1000 * 1000;
+    const long long NS_PER_SECOND = 1000000000; 
+    long long delayNs = delayInMs * NS_PER_MS;  
+    int seconds = delayNs / NS_PER_SECOND;  
+    int nanoseconds = delayNs % NS_PER_SECOND;  
+    struct timespec reqDelay = {seconds, nanoseconds}; 
+    nanosleep(&reqDelay, (struct timespec *) NULL); 
+}
 int main(void)
 {
     Period_init();
@@ -22,9 +31,7 @@ int main(void)
     UdpListener_init();
     while(UdpListener_isRunning()) {
         Joystick_getReading();   
-        // printf("still inside the loop");
-        struct timespec reqDelay = {0, 1000000000};
-        nanosleep(&reqDelay, (struct timespec *) NULL);
+        sleepForMs(1000);
     }
     UdpListener_cleanup();
     Lcd_cleanup();
