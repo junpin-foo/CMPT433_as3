@@ -3,6 +3,18 @@
         "wave_player.h": "c",
         "unistd.h": "c",
         "audiomixer.h": "c",
-        "beat_helper.h": "c"
+        "beat_helper.h": "c",
+        "atomic": "c",
+        "assert.h": "c",
+        "beatplayer.h": "c",
+        "rotary_encoder_statemachine.h": "c",
+        "random": "c",
+        "limits": "c",
+        "terminaloutput.h": "c",
+        "pthread.h": "c",
+        "fcntl.h": "c",
+        "stdbool.h": "c",
+        "i2c-dev.h": "c",
+        "stdio.h": "c"
     }
 }

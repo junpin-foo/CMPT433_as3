@@ -10,7 +10,6 @@
 #include <pthread.h>
 #include <unistd.h>
 #include <updateLcd.h>
-#include "hal/pwm_rotary.h"
 #include "hal/joystick.h"
 
 
@@ -23,10 +22,11 @@ static volatile bool lcdRunning = true;
 static void *lcd_thread(void* arg) {
     (void)arg;
     while(lcdRunning){
-        int page = Joystick_getPageCount();
-        printf("Page: %d\n", page);
+        // int page = Joystick_getPageCount();
+        // printf("Page: %d\n", page);
         UpdateLcd_withPage(Joystick_getPageCount());
-        sleep(1);
+        struct timespec reqDelay = {0, 1000000000};
+        nanosleep(&reqDelay, (struct timespec *) NULL);
     }
     return NULL;
 }
@@ -44,7 +44,7 @@ void Lcd_init()
 void Lcd_cleanup()
 {
     assert(isInitialized);
-    // lcdRunning = false;
+    lcdRunning = false;
     pthread_join(lcdThread, NULL);
     UpdateLcd_cleanup();
     isInitialized = false;

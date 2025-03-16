@@ -16,11 +16,11 @@
 #include <string.h>
 #include <pthread.h>
 #include <arpa/inet.h>
-#include "hal/rotary_encoder_statemachine.h"
-#include "hal/pwm_rotary.h"
-#include "hal/lcd.h"
 #include <stdatomic.h> 
+#include <stdbool.h>
 #include <assert.h>
+
+#include "beatPlayer.h"
 
 
 #define PORT 12345
@@ -33,10 +33,9 @@ static pthread_t udp_thread;
 static int sockfd;
 static struct sockaddr_in server_addr, client_addr;
 static socklen_t addr_len = sizeof(client_addr);
-static char *last_command = NULL;
 static bool isInitialized = false;
 
-static volatile atomic_bool running = true;
+static bool running = true;
 
 //Prototype
 static void* udp_listener_thread(void* arg);
@@ -49,7 +48,7 @@ void* udp_listener_thread(void* arg) {
     char buffer[BUFFER_SIZE];
     ssize_t received_len;
 
-    while (running) {
+    while (running) { 
         received_len = recvfrom(sockfd, buffer, BUFFER_SIZE - 1, 0, (struct sockaddr*)&client_addr, &addr_len);
         if (received_len < 0) {
             perror("Receive failed");
@@ -60,35 +59,61 @@ void* udp_listener_thread(void* arg) {
             buffer[strcspn(buffer, "\r\n")] = '\0';  // Strip trailing newline or carriage return
         }
 
-        if (strlen(buffer) == 0) {
-            if (last_command == NULL) {
-                sendto(sockfd, "Unknown command. Type 'help' for a list of commands.\n", 53, 0, (struct sockaddr*)&client_addr, addr_len);
-                continue;
-            }
-            strncpy(buffer, last_command, sizeof(buffer) - 1); // Use the last valid command
-            buffer[sizeof(buffer) - 1] = '\0';  // Ensure null-termination
-        } else {
-            free(last_command);
-            last_command = strdup(buffer);  // Store last valid command
-        }
-
         // printf("Received command: %s\n", buffer);
 
-        if (strcmp(buffer, "help") == 0 || strcmp(buffer, "?") == 0) {
-            char response[HELP_BUFFER_SIZE];
-            snprintf(response, sizeof(response), 
-                    "\nAccepted command examples:\n"
-                    "count -- get the total number of samples taken.\n"
-                    "length -- get the number of samples taken in the previously completed second.\n"
-                    "dips -- get the number of dips in the previously completed second.\n"
-                    "history -- get all the samples in the previously completed second.\n"
-                    "stop -- cause the server program to end.\n"
-                    "<enter> -- repeat last command.\n");
+        char response[BUFFER_SIZE];
 
-            sendto(sockfd, response, strlen(response), 0, (const struct sockaddr *)&client_addr, addr_len);
-        } else {
-            sendto(sockfd, "Unknown command. Type 'help' for a list of commands.\n", 53, 0, (struct sockaddr*)&client_addr, addr_len);
+        if (strncmp(buffer, "mode ", 5) == 0) {
+            int mode;
+            if (sscanf(buffer + 5, "%d", &mode) == 1) {
+                BeatPlayer_setBeatMode(mode);
+                snprintf(response, sizeof(response), "%d", mode);
+            } else if (strncmp(buffer + 5, "null", 4) == 0) {
+                snprintf(response, sizeof(response), "%d", BeatPlayer_getBeatMode());
+            }
+        } 
+        if (strncmp(buffer, "volume ", 7) == 0) {
+            int volume;
+            if (sscanf(buffer + 7, "%d", &volume) == 1) {
+                snprintf(response, sizeof(response), "%d", volume);
+                BeatPlayer_setVolume(volume);
+            } else if (strncmp(buffer + 7, "null", 4) == 0){
+                snprintf(response, sizeof(response), "%d", BeatPlayer_getVolume());
+            }
+        } 
+        if (strncmp(buffer, "tempo ", 6) == 0) {
+            int tempo;
+            if (sscanf(buffer + 6, "%d", &tempo) == 1) {
+                snprintf(response, sizeof(response), "%d", tempo);
+                // printf("tempo: %d\n", tempo);
+                BeatPlayer_setBPM(tempo);
+            } else if (strncmp(buffer + 6, "null", 4) == 0){
+                snprintf(response, sizeof(response), "%d", BeatPlayer_getBpm());
+            }
+        } 
+        if (strncmp(buffer, "play ", 5) == 0) {
+            int song;
+            if (sscanf(buffer + 5, "%d", &song) == 1) {
+                snprintf(response, sizeof(response), "%d", song);
+                if(song == 0) {
+                    BeatPlayer_playBaseDrum();
+                }
+                else if (song == 1){
+                    BeatPlayer_playHiHat();
+                }
+                else if (song == 2){
+                    BeatPlayer_playSnare();
+                }
+            }
+        } 
+        if (strcmp(buffer, "stop") == 0) {
+            snprintf(response, sizeof(response), "stop");
+            sendto(sockfd, response, strlen(response), 0, (struct sockaddr*)&client_addr, addr_len);
+            running = false;  // Signal main thread to exit
+            break;
         }
+        // printf("Response: %s\n", response);
+        sendto(sockfd, response, strlen(response), 0, (struct sockaddr*)&client_addr, addr_len);
     }
     return NULL;
 }
@@ -119,7 +144,6 @@ void UdpListener_init(void) {
 void UdpListener_cleanup(void) {
     assert(isInitialized);
     pthread_join(udp_thread, NULL);
-    free(last_command);
     close(sockfd);
 }
 

@@ -33,7 +33,6 @@ int RotaryEncoderStateMachine_getValue();
 static void on_clockwise(void);
 static void on_counterclockwise(void);
 
-
 /*
     Define the Statemachine Data Structures
 */
@@ -114,7 +113,7 @@ struct state states[] = {
     END STATEMACHINE
 */
 
-struct state* pCurrentState = &states[0];
+static struct state* pCurrentState = &states[0];
 
 
 

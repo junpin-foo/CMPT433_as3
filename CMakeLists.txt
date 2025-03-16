@@ -7,12 +7,12 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_COMPILER "aarch64-linux-gnu-gcc")
 add_compile_options(-Wall -Werror -Wpedantic -Wextra -g)
 # add_compile_options(-fdiagnostics-color)
-add_compile_options(-fno-diagnostics-color)
+# add_compile_options(-fno-diagnostics-color)
 
 # Enable address sanitizer
 # (Comment this out to make your code faster)
-add_compile_options(-fsanitize=address)
-add_link_options(-fsanitize=address)
+# add_compile_options(-fsanitize=address)
+# add_link_options(-fsanitize=address)
 
 # Enable PThread library for linking
 add_compile_options(-pthread)

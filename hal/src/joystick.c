@@ -34,25 +34,33 @@ static atomic_int volume = 50;
 static atomic_int page_number = 1;
 
 static pthread_t xy_thread, button_thread;
-static volatile bool keepReading = true;
+static volatile bool keepReading = false;
 
 static uint16_t x_min = 18, x_max = 1644;
 static uint16_t y_min = 8, y_max = 1635;
+
+//DEBOUNCE
+#define DEBOUNCE_TIME_MS 100
+static struct timespec last_btn_time;
 
 void *joystick_xy_thread_func(void *arg);
 void *joystick_button_thread_func(void *arg);
 static JoystickDirection getJoystickDirection(void);
 
+// Calculate time difference in milliseconds
+static long time_diff_ms(struct timespec *start, struct timespec *end) {
+    return (end->tv_sec - start->tv_sec) * 1000 + (end->tv_nsec - start->tv_nsec) / 1000000;
+}
+
 void Joystick_initialize(void) {
     Ic2_initialize();
-    Gpio_initialize();
+    // Gpio_initialize();
     s_line = Gpio_openForEvents(GPIO_CHIP, GPIO_LINE);
     i2c_file_desc = init_i2c_bus(I2CDRV_LINUX_BUS, I2C_DEVICE_ADDRESS);
-    
+    keepReading = true;
+    isInitialized = true;
     pthread_create(&xy_thread, NULL, joystick_xy_thread_func, NULL);
     pthread_create(&button_thread, NULL, joystick_button_thread_func, NULL);
-    
-    isInitialized = true;
 }
 
 void Joystick_cleanUp(void) {
@@ -62,7 +70,7 @@ void Joystick_cleanUp(void) {
     
     Ic2_cleanUp();
     Gpio_close(s_line);
-    Gpio_cleanup();
+    // Gpio_cleanup();
     isInitialized = false;
 }
 
@@ -77,15 +85,16 @@ void *joystick_xy_thread_func(void *arg) {
             int new_volume = atomic_load(&volume) + 5;
             if (new_volume <= 100) atomic_store(&volume, new_volume);
             AudioMixer_setVolume(new_volume);
-            printf("UP\n");
+            // printf("UP\n");
         } else if (data == JOYSTICK_DOWN) {
             int new_volume = atomic_load(&volume) - 5;
             if (new_volume >= 0) atomic_store(&volume, new_volume);
             AudioMixer_setVolume(new_volume);
-            printf("DOWN\n");
+            // printf("DOWN\n");
         }
 
-        usleep(100000); // 100ms delay
+        struct timespec reqDelay = {0, 10000000};
+        nanosleep(&reqDelay, (struct timespec *) NULL); // 10ms delay
     }
     return NULL;
 }
@@ -93,6 +102,8 @@ void *joystick_xy_thread_func(void *arg) {
 void *joystick_button_thread_func(void *arg) {
     (void)arg;
     assert(isInitialized);
+
+    clock_gettime(CLOCK_MONOTONIC, &last_btn_time);
 
     while (keepReading) {
         struct gpiod_line_bulk events;
@@ -112,13 +123,18 @@ void *joystick_button_thread_func(void *arg) {
             }
         }
 
-        if (buttonFlag) {
+        struct timespec now;
+        clock_gettime(CLOCK_MONOTONIC, &now);
+
+        if (buttonFlag && time_diff_ms(&last_btn_time, &now) > DEBOUNCE_TIME_MS) {
             int new_page = atomic_load(&page_number) % 3 + 1;
             atomic_store(&page_number, new_page);
-            printf("Button pressed, page number: %d\n", new_page);
+            // printf("Button pressed, page number: %d\n", new_page);
+            last_btn_time = now;
         }
 
-        usleep(100000); // 100ms delay
+        struct timespec reqDelay = {0, 10000000};
+        nanosleep(&reqDelay, (struct timespec *) NULL); // 10ms delay
     }
     return NULL;
 }

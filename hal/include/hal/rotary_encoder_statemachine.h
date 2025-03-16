@@ -11,8 +11,8 @@
  * - Provides thread-based monitoring of GPIO events for reliable tracking.  
  * - Allows external components to retrieve or reset the encoder value. 
 */
-#ifndef _BTN_STATEMACHINE_H_
-#define _BTN_STATEMACHINE_H_
+#ifndef _ENCODER_STATEMACHINE_H_
+#define _ENCODER_STATEMACHINE_H_
 
 #include <stdbool.h>
 

@@ -92,3 +92,33 @@ uint16_t read_i2c_reg16(int i2c_file_desc, uint8_t reg_addr) {
     nanosleep(&reqDelay, (struct timespec *) NULL);
     return value;
 }
+
+void write_i2c_reg8(int i2c_file_desc, uint8_t reg_addr, uint8_t value) {
+    uint8_t buffer[2] = {reg_addr, value};
+    if (write(i2c_file_desc, buffer, sizeof(buffer)) != sizeof(buffer)) {
+        perror("Error writing to I2C register");
+        exit(EXIT_FAILURE);
+    }
+}
+
+void read_i2c_burst(int i2c_file_desc, uint8_t reg_addr, uint8_t *buffer, int length) {
+    if (!isInitialized) {
+        perror("Error: I2C not initialized!\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // Send register address
+    if (write(i2c_file_desc, &reg_addr, 1) != 1) {
+        perror("Unable to write i2c register address.");
+        exit(EXIT_FAILURE);
+    }
+
+    // Read multiple bytes from the register
+    if (read(i2c_file_desc, buffer, length) != (ssize_t)length) {
+        perror("Unable to read i2c burst data.");
+        exit(EXIT_FAILURE);
+    }
+
+    struct timespec reqDelay = {0, 750000};
+    nanosleep(&reqDelay, (struct timespec *) NULL);
+}

@@ -1,1 +1,0 @@
-aarch64-linux-gnu-gcc -g -fsanitize=address -pthread CMakeFiles/beat_box.dir/src/beatPlayer.c.o CMakeFiles/beat_box.dir/src/beat_box.c.o CMakeFiles/beat_box.dir/src/udp_listener.c.o CMakeFiles/beat_box.dir/src/updateLcd.c.o -o beat_box  -lgpiod ../hal/libhal.a ../lcd/liblcd.a ../lgpio/liblgpio.a -lasound -lgpiod -lasound 

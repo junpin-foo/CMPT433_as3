@@ -16,5 +16,7 @@ void Ic2_cleanUp(void);
 int init_i2c_bus(const char* bus, int address);
 void write_i2c_reg16(int i2c_file_desc, uint8_t reg_addr, uint16_t value);
 uint16_t read_i2c_reg16(int i2c_file_desc, uint8_t reg_addr);
+void write_i2c_reg8(int i2c_file_desc, uint8_t reg_addr, uint8_t value);
+void read_i2c_burst(int i2c_file_desc, uint8_t reg_addr, uint8_t *buffer, int length);
 
 #endif
