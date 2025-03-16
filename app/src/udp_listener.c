@@ -14,6 +14,9 @@
 #define HELP_BUFFER_SIZE 512
 #define SHORT_BUFFER_SIZE 64
 #define MAX_UDP_BUFFER_SIZE 1500
+#define DRUM_NUM 0 
+#define HITHAT_NUM 1
+#define SNARE_NUM 2
 
 static pthread_t udp_thread;
 static int sockfd;
@@ -49,45 +52,44 @@ void* udp_listener_thread(void* arg) {
 
         char response[BUFFER_SIZE];
 
-        if (strncmp(buffer, "mode ", 5) == 0) {
+        if (strncmp(buffer, "mode ", strlen("mode ")) == 0) {
             int mode;
-            if (sscanf(buffer + 5, "%d", &mode) == 1) {
+            if (sscanf(buffer + strlen("mode "), "%d", &mode) == 1) {
                 BeatPlayer_setBeatMode(mode);
                 snprintf(response, sizeof(response), "%d", mode);
-            } else if (strncmp(buffer + 5, "null", 4) == 0) {
+            } else if (strncmp(buffer + strlen("mode "), "null", strlen("null")) == 0) {
                 snprintf(response, sizeof(response), "%d", BeatPlayer_getBeatMode());
             }
         } 
-        if (strncmp(buffer, "volume ", 7) == 0) {
+        if (strncmp(buffer, "volume ", strlen("volume ")) == 0) {
             int volume;
-            if (sscanf(buffer + 7, "%d", &volume) == 1) {
+            if (sscanf(buffer + strlen("volume "), "%d", &volume) == 1) {
                 snprintf(response, sizeof(response), "%d", volume);
                 BeatPlayer_setVolume(volume);
-            } else if (strncmp(buffer + 7, "null", 4) == 0){
+            } else if (strncmp(buffer + strlen("volume "), "null", strlen("null")) == 0){
                 snprintf(response, sizeof(response), "%d", BeatPlayer_getVolume());
             }
         } 
-        if (strncmp(buffer, "tempo ", 6) == 0) {
+        if (strncmp(buffer, "tempo ", strlen("tempo ")) == 0) {
             int tempo;
-            if (sscanf(buffer + 6, "%d", &tempo) == 1) {
+            if (sscanf(buffer + strlen("tempo "), "%d", &tempo) == 1) {
                 snprintf(response, sizeof(response), "%d", tempo);
-                // printf("tempo: %d\n", tempo);
                 BeatPlayer_setBPM(tempo);
-            } else if (strncmp(buffer + 6, "null", 4) == 0){
+            } else if (strncmp(buffer + strlen("tempo "), "null", strlen("null")) == 0){
                 snprintf(response, sizeof(response), "%d", BeatPlayer_getBpm());
             }
         } 
-        if (strncmp(buffer, "play ", 5) == 0) {
+        if (strncmp(buffer, "play ", strlen("play ")) == 0) {
             int song;
-            if (sscanf(buffer + 5, "%d", &song) == 1) {
+            if (sscanf(buffer + strlen("play "), "%d", &song) == 1) {
                 snprintf(response, sizeof(response), "%d", song);
-                if(song == 0) {
+                if(song == DRUM_NUM) {
                     BeatPlayer_playBaseDrum();
                 }
-                else if (song == 1){
+                else if (song == HITHAT_NUM){
                     BeatPlayer_playHiHat();
                 }
-                else if (song == 2){
+                else if (song == SNARE_NUM){
                     BeatPlayer_playSnare();
                 }
             }
