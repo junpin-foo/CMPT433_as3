@@ -66,7 +66,7 @@ void write_i2c_reg16(int i2c_file_desc, uint8_t reg_addr, uint16_t value) {
         perror("Unable to write i2c register");
         exit(EXIT_FAILURE);
     }
-    sleepForMs(0.75);
+    sleepForMs(1);
 }
 
 uint16_t read_i2c_reg16(int i2c_file_desc, uint8_t reg_addr) {
