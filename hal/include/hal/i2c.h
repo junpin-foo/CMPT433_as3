@@ -32,4 +32,5 @@ void write_i2c_reg8(int i2c_file_desc, uint8_t reg_addr, uint8_t value);
 // Burst reads from the spcifiec address and length
 void read_i2c_burst(int i2c_file_desc, uint8_t reg_addr, uint8_t *buffer, int length);
 
+uint8_t read_i2c_reg8(int i2c_file_desc, uint8_t reg_addr);
 #endif

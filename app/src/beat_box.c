@@ -28,8 +28,7 @@ int main(void)
     TerminalOutput_init();
     Lcd_init();
     UdpListener_init();
-    while(UdpListener_isRunning()) {
-        // Joystick_getReading();   
+    while(UdpListener_isRunning()) {  
         sleepForMs(1000);
     }
     UdpListener_cleanup();

@@ -17,6 +17,7 @@
 #include <pthread.h>
 #include <assert.h>
 #include <unistd.h>
+#include <math.h>
 
 #define I2C_BUS "/dev/i2c-1"
 #define ACCEL_I2C_ADDRESS 0x19
@@ -40,10 +41,14 @@
 #define REG_OUT_Z_H 0x2D
 
 //DEBOUNCE TIMER
-#define DRUM_THRESHOLD 2000 
+#define xy_THRESHOLD 0.4 
+#define z_THRESHOLD 0.55 
 #define DEBOUNCE_TIME_MS 130
-static int16_t prev_x = 0, prev_y = 0, prev_z = 0;
+
+static double prev_x = 0.0, prev_y = 0.0, prev_z = 0.0;
 static struct timespec last_x_time, last_y_time, last_z_time;
+
+#define SENSITIVITY_2G 4096.0  // Sensitivity for ±2g range (14-bit resolution)
 
 static int i2c_file_desc = -1;
 static bool isInitialized = false;
@@ -64,16 +69,20 @@ void Accelerometer_initialize(void) {
     pthread_create(&accelerometer_thread, NULL, Accelerometer_thread_func, NULL);
 
     // Example: Configure accelerometer 
-    write_i2c_reg8(i2c_file_desc, REG_CTRL1, 0x57);  //100Hz, (High)14-bit resolution, (Low)14-bit resolution 
+    write_i2c_reg8(i2c_file_desc, REG_CTRL1, 0x97);  //100Hz, (High)14-bit resolution, (Low)14-bit resolution 
     // write_i2c_reg8(i2c_file_desc, REG_CTRL3, 0x03);  //no sleep
     // write_i2c_reg8(i2c_file_desc, REG_CTRL4, 0x01);  //Data-Ready is routed to INT1 pad
     // write_i2c_reg8(i2c_file_desc, REG_CTRL5, 0x01);
-    // write_i2c_reg8(i2c_file_desc, REG_CTRL6, 0x24); //+8g
-    // write_i2c_reg8(i2c_file_desc, REG_CTRL6, 0x00); //+2g
+    // write_i2c_reg8(i2c_file_desc, REG_CTRL6, 0x04); 
+    write_i2c_reg8(i2c_file_desc, REG_CTRL6, 0x00); //+2g
     // write_i2c_reg8(i2c_file_desc, REG_CTRL2, 0x40); //soft reset
-
     // uint8_t fifo_config = (0x00 << 3) | (0x00);  // FMode = 110, FTH = 0x0A
     // write_i2c_reg8(i2c_file_desc, REG_FIFO_CTRL, fifo_config);
+
+    // uint8_t value = read_i2c_reg16(i2c_file_desc, REG_CTRL6);
+    // printf("value: 0b");
+    // for (int i = 15; i >= 0; i--) printf("%d", (value >> i) & 1);
+    // printf(" (%" PRIx16 "h)\n", value);
 }
 
 void Accelerometer_cleanUp(void) {
@@ -95,24 +104,24 @@ void *Accelerometer_thread_func(void *arg) {
     while (keepReading) {
         AccelerometerData data = Accelerometer_getReading();
 
-        int16_t dx = abs(data.x - prev_x);
-        int16_t dy = abs(data.y - prev_y);
-        int16_t dz = abs(data.z - prev_z);
+        double dx = fabs(data.x - prev_x);
+        double dy = fabs(data.y - prev_y);
+        double dz = fabs(data.z - prev_z);
 
         struct timespec now;
         clock_gettime(CLOCK_MONOTONIC, &now);
-        // printf("dx: %d, dy: %d, dz: %d\n", dx, dy, dz);
-        if (dx > 2000  && time_diff_ms(&last_x_time, &now) > DEBOUNCE_TIME_MS) {
+        // printf("dx: %f, dy: %f, dz: %f\n", dx, dy, dz);
+        if (dx > xy_THRESHOLD  && time_diff_ms(&last_x_time, &now) > DEBOUNCE_TIME_MS) {
             // printf("x detected!\n");
             BeatPlayer_playHiHat();
             last_x_time = now;
         }
-        if (dy > 2000  && time_diff_ms(&last_y_time, &now) > DEBOUNCE_TIME_MS) {
+        if (dy > xy_THRESHOLD  && time_diff_ms(&last_y_time, &now) > DEBOUNCE_TIME_MS) {
             // printf("y detected!\n");
             BeatPlayer_playSnare();
             last_y_time = now;
         }
-        if (dz > 4000 && time_diff_ms(&last_z_time, &now) > DEBOUNCE_TIME_MS) {
+        if (dz > z_THRESHOLD && time_diff_ms(&last_z_time, &now) > DEBOUNCE_TIME_MS) {
             // printf("z detected!\n");
             BeatPlayer_playBaseDrum();
             last_z_time = now;
@@ -143,21 +152,21 @@ AccelerometerData Accelerometer_getReading(void) {
 
     // Print in binary
     // printf("X: 0b");
-    // for (int i = 13; i >= 0; i--) printf("%d", (x >> i) & 1);
+    // for (int i = 15; i >= 0; i--) printf("%d", (x >> i) & 1);
     // printf(" (%" PRIx16 "h)\n", x);
 
     // printf("Y: 0b");
-    // for (int i = 13; i >= 0; i--) printf("%d", (y >> i) & 1);
+    // for (int i = 15; i >= 0; i--) printf("%d", (y >> i) & 1);
     // printf(" (%" PRIx16 "h)\n", y);
 
     // printf("Z: 0b");
-    // for (int i = 13; i >= 0; i--) printf("%d", (z >> i) & 1);
+    // for (int i = 15; i >= 0; i--) printf("%d", (z >> i) & 1);
     // printf(" (%" PRIx16 "h)\n", z);
 
     // printf("X: %d, Y: %d, Z: %d\n", x, y, z);
-    // nanosleep((const struct timespec[]){{0, 100000000L}}, NULL);
-    AccelerometerData data = {x, y, z};
-
+    sleepForMs(10);
+    AccelerometerData data = {x / SENSITIVITY_2G, y / SENSITIVITY_2G, z / SENSITIVITY_2G};
+    // printf("X: %fg, Y: %fg, Z: %fg\n", data.x, data.y, data.z);
     return data;
 }
 

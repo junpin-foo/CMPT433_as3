@@ -12,9 +12,9 @@
 #include <stdint.h>
 #include "periodTimer.h"
 typedef struct {
-    int16_t x;
-    int16_t y;
-    int16_t z;
+    double x;
+    double y;
+    double z;
 } AccelerometerData;
 
 // Initialize the I2C interface and open the I2C bus. And start the thread to read the accelerometer data.

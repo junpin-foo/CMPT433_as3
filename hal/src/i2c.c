@@ -92,6 +92,30 @@ uint16_t read_i2c_reg16(int i2c_file_desc, uint8_t reg_addr) {
     return value;
 }
 
+uint8_t read_i2c_reg8(int i2c_file_desc, uint8_t reg_addr) {
+    if (!isInitialized) {
+        perror("Error: I2C not initialized!\n");
+        exit(EXIT_FAILURE);
+    }
+
+    if (write(i2c_file_desc, &reg_addr, 1) != 1) {
+        perror("Unable to write I2C register address.");
+        exit(EXIT_FAILURE);
+    }
+
+    uint8_t value = 0;
+    
+    if (read(i2c_file_desc, &value, 1) != 1) {
+        perror("Unable to read I2C register.");
+        exit(EXIT_FAILURE);
+    }
+
+    sleepForMs(1);
+    return value;
+}
+
+
+
 void write_i2c_reg8(int i2c_file_desc, uint8_t reg_addr, uint8_t value) {
     uint8_t buffer[2] = {reg_addr, value};
     if (write(i2c_file_desc, buffer, sizeof(buffer)) != sizeof(buffer)) {
@@ -117,6 +141,4 @@ void read_i2c_burst(int i2c_file_desc, uint8_t reg_addr, uint8_t *buffer, int le
         perror("Unable to read i2c burst data.");
         exit(EXIT_FAILURE);
     }
-
-   sleepForMs(1);
 }
