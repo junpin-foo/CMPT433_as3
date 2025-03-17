@@ -28,7 +28,10 @@ typedef enum {
     JOYSTICK_PRESSED
 } JoystickDirection;
 
+// Initializes the joystick and starts thread to sample xy position, and button press
 void Joystick_initialize(void);
+
+// Cleans up the joystick
 void Joystick_cleanUp(void);
 /*
 This function reads the current joystick position and returns the x and y values after scaling.
@@ -36,8 +39,7 @@ This function reads the current joystick position and returns the x and y values
 */
 struct JoystickData Joystick_getReading();
 
+// Returns the current page number from pressing down on joystick
 int Joystick_getPageCount();
-
-int Joystick_getVolume();
 
 #endif

@@ -1,3 +1,11 @@
+/* beatPlayer.c
+ * 
+ * This file implements the functions defined in beatPlayer.h. 
+ * It provides the necessary functions to control the playback of drum sounds (Hi-Hat, Bass Drum, Snare
+ * and to switch between different beat modes.
+ * 
+ */
+
 #include "hal/audioMixer.h"
 #include "beatPlayer.h"
 #include <stdio.h>
@@ -9,6 +17,7 @@
 #include <stdatomic.h>
 #include <hal/rotary_encoder_statemachine.h>
 #include <hal/rotary_btn_statemachine.h>
+#include <sleep_timer_helper.h>
 
 #define DEFAULT_BPM 120
 #define MIN_BPM 40
@@ -60,7 +69,6 @@ static void* beatThreadDetectBPM(void* args);
 static void BeatPlayer_playRockBeat();
 static void BeatPlayer_playCustomBeat();
 static void BeatPlayer_detectRotarySpin();
-static void sleepForMs(long long delayInMs);
 
 void BeatPlayer_init() {
     assert(!isInitialized);
@@ -236,15 +244,4 @@ static void BeatPlayer_playCustomBeat() {
         // Sleep for the calculated half-beat time
         sleepForMs(halfBeatTimeMs);
     }
-}
-
-// Helper function to sleep for ms 
-static void sleepForMs(long long delayInMs) { 
-    const long long NS_PER_MS = 1000 * 1000;
-    const long long NS_PER_SECOND = 1000000000; 
-    long long delayNs = delayInMs * NS_PER_MS;  
-    int seconds = delayNs / NS_PER_SECOND;  
-    int nanoseconds = delayNs % NS_PER_SECOND;  
-    struct timespec reqDelay = {seconds, nanoseconds}; 
-    nanosleep(&reqDelay, (struct timespec *) NULL); 
 }

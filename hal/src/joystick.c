@@ -9,6 +9,7 @@
 #include "hal/i2c.h"
 #include "hal/gpio.h"
 #include "beatPlayer.h"
+#include "sleep_timer_helper.h"
 #include <stdbool.h>
 #include <assert.h>
 #include <pthread.h>
@@ -46,11 +47,6 @@ static struct timespec last_btn_time;
 void *joystick_xy_thread_func(void *arg);
 void *joystick_button_thread_func(void *arg);
 static JoystickDirection getJoystickDirection(void);
-
-// Calculate time difference in milliseconds
-static long time_diff_ms(struct timespec *start, struct timespec *end) {
-    return (end->tv_sec - start->tv_sec) * 1000 + (end->tv_nsec - start->tv_nsec) / 1000000;
-}
 
 void Joystick_initialize(void) {
     Ic2_initialize();
@@ -91,8 +87,7 @@ void *joystick_xy_thread_func(void *arg) {
             BeatPlayer_setVolume(new_volume);
         }
 
-        struct timespec reqDelay = {0, 100000000};
-        nanosleep(&reqDelay, (struct timespec *) NULL); // 100ms delay
+        sleepForMs(100);
     }
     return NULL;
 }
@@ -131,8 +126,7 @@ void *joystick_button_thread_func(void *arg) {
             last_btn_time = now;
         }
 
-        struct timespec reqDelay = {0, 10000000};
-        nanosleep(&reqDelay, (struct timespec *) NULL); // 10ms delay
+        sleepForMs(10);
     }
     return NULL;
 }
@@ -186,8 +180,4 @@ struct JoystickData Joystick_getReading() {
 
 int Joystick_getPageCount() {
     return page_number;
-}
-
-int Joystick_getVolume() {
-    return volume;
 }

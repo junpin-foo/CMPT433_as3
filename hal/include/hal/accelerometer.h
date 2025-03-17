@@ -17,8 +17,15 @@ typedef struct {
     int16_t z;
 } AccelerometerData;
 
+// Initialize the I2C interface and open the I2C bus. And start the thread to read the accelerometer data.
 void Accelerometer_initialize(void);
+
+// Clean up the I2C interface and close the I2C bus.
 void Accelerometer_cleanUp(void);
+
+// Get the current accelerometer reading.
 AccelerometerData Accelerometer_getReading();
+
+// Get the sampling time of the accelerometer.
 Period_statistics_t Accelerometer_getSamplingTime();
 #endif

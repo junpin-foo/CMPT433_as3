@@ -1,3 +1,23 @@
+/* 
+ * udp_listener.c
+ * 
+ * This file contains the implementation of the UDP listener module.
+ * The UDP listener listens for incoming UDP packets on a specified port.
+ * The listener can be used to control the beat player via UDP commands.
+ * 
+ * The following commands are supported:
+ * - mode <mode>: Set the beat mode to <mode> (0 = base drum, 1 = hi-hat, 2 = snare)
+ * - mode null: Get the current beat mode
+ * - volume <volume>: Set the volume to <volume> (0-100)
+ * - volume null: Get the current volume
+ * - tempo <tempo>: Set the tempo to <tempo> (BPM)
+ * - tempo null: Get the current tempo
+ * - play <song>: Play the specified song (0 = base drum, 1 = hi-hat, 2 = snare)
+ * - stop: Stop the listener and exit the program
+ * 
+ * The listener responds to each command with an acknowledgment message.
+ *
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -26,6 +46,111 @@ static bool isInitialized = false;
 
 static bool running = true;
 
+// Command handler function prototype
+typedef void (*CommandHandler)(const char*, char*);
+
+// Command struct
+typedef struct {
+    const char* command;
+    CommandHandler handler;
+} Command;
+
+// Command handler functions
+void handle_mode(const char* arg, char* response) {
+    if (strcmp(arg, "null") == 0) {
+        snprintf(response, BUFFER_SIZE, "%d", BeatPlayer_getBeatMode());
+    } else {
+        int mode = atoi(arg);
+        BeatPlayer_setBeatMode(mode);
+        snprintf(response, BUFFER_SIZE, "%d", mode);
+    }
+}
+
+void handle_volume(const char* arg, char* response) {
+    if (strcmp(arg, "null") == 0) {
+        snprintf(response, BUFFER_SIZE, "%d", BeatPlayer_getVolume());
+    } else {
+        int volume = atoi(arg);
+        BeatPlayer_setVolume(volume);
+        snprintf(response, BUFFER_SIZE, "%d", volume);
+    }
+}
+
+void handle_tempo(const char* arg, char* response) {
+    if (strcmp(arg, "null") == 0) {
+        snprintf(response, BUFFER_SIZE, "%d", BeatPlayer_getBpm());
+    } else {
+        int tempo = atoi(arg);
+        BeatPlayer_setBPM(tempo);
+        snprintf(response, BUFFER_SIZE, "%d", tempo);
+    }
+}
+
+void handle_play(const char* arg, char* response) {
+    int song = atoi(arg);
+    snprintf(response, BUFFER_SIZE, "%d", song);
+    if (song == DRUM_NUM) {
+        BeatPlayer_playBaseDrum();
+    } else if (song == HITHAT_NUM) {
+        BeatPlayer_playHiHat();
+    } else if (song == SNARE_NUM) {
+        BeatPlayer_playSnare();
+    }
+}
+
+void handle_stop(const char* arg, char* response) {
+    (void)arg;  // Unused parameter
+    snprintf(response, BUFFER_SIZE, "stop");
+    running = false;
+}
+
+// Command list
+Command commands[] = {
+    {"mode", handle_mode},
+    {"volume", handle_volume},
+    {"tempo", handle_tempo},
+    {"play", handle_play},
+    {"stop", handle_stop},
+};
+const int command_count = sizeof(commands) / sizeof(commands[0]);
+
+void* udp_listener_thread(void* arg) {
+    (void)arg;
+    char buffer[BUFFER_SIZE];
+    char response[BUFFER_SIZE];
+    ssize_t received_len;
+
+    while (running) {
+        received_len = recvfrom(sockfd, buffer, BUFFER_SIZE - 1, 0, (struct sockaddr*)&client_addr, &addr_len);
+        if (received_len < 0) {
+            perror("Receive failed");
+            continue;
+        }
+        buffer[received_len] = '\0';
+        buffer[strcspn(buffer, "\r\n")] = '\0';
+        
+        char command[BUFFER_SIZE], arg[BUFFER_SIZE] = "";
+        sscanf(buffer, "%s %s", command, arg);
+
+        bool handled = false;
+        for (int i = 0; i < command_count; i++) {
+            if (strcmp(command, commands[i].command) == 0) {
+                commands[i].handler(arg, response);
+                handled = true;
+                break;
+            }
+        }
+        
+        if (!handled) {
+            snprintf(response, BUFFER_SIZE, "Unknown command");
+        }
+
+        sendto(sockfd, response, strlen(response), 0, (struct sockaddr*)&client_addr, addr_len);
+    }
+    return NULL;
+}
+
+/*
 //Prototype
 static void* udp_listener_thread(void* arg);
 void UdpListener_init(void);
@@ -105,7 +230,7 @@ void* udp_listener_thread(void* arg) {
     }
     return NULL;
 }
-
+*/
 void UdpListener_init(void) {
     assert(!isInitialized);
     isInitialized = true;

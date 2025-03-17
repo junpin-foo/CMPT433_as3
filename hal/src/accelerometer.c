@@ -7,6 +7,7 @@
 #include "hal/accelerometer.h"
 #include "hal/i2c.h"
 #include "beatPlayer.h"
+#include "sleep_timer_helper.h"
 
 #include <stdint.h>
 #include <stdio.h>
@@ -14,7 +15,6 @@
 #include <stdbool.h>
 #include <inttypes.h> 
 #include <pthread.h>
-#include <time.h>
 #include <assert.h>
 #include <unistd.h>
 
@@ -83,10 +83,6 @@ void Accelerometer_cleanUp(void) {
     isInitialized = false;
 }
 
-// Calculate time difference in milliseconds
-static long time_diff_ms(struct timespec *start, struct timespec *end) {
-    return (end->tv_sec - start->tv_sec) * 1000 + (end->tv_nsec - start->tv_nsec) / 1000000;
-}
 
 void *Accelerometer_thread_func(void *arg) {
     (void)arg;
@@ -126,8 +122,7 @@ void *Accelerometer_thread_func(void *arg) {
         prev_y = data.y;
         prev_z = data.z;
        
-        struct timespec reqDelay = {0, 10000000};
-        nanosleep(&reqDelay, (struct timespec *) NULL); // 10ms delay
+       sleepForMs(10);
     }
     return NULL;
 }

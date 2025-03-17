@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <updateLcd.h>
 #include "hal/joystick.h"
+#include "sleep_timer_helper.h"
 
 
 #define BUFFER_SIZE 100
@@ -22,11 +23,8 @@ static volatile bool lcdRunning = true;
 static void *lcd_thread(void* arg) {
     (void)arg;
     while(lcdRunning){
-        // int page = Joystick_getPageCount();
-        // printf("Page: %d\n", page);
         UpdateLcd_withPage(Joystick_getPageCount());
-        struct timespec reqDelay = {0, 1000000000};
-        nanosleep(&reqDelay, (struct timespec *) NULL);
+        sleepForMs(1000);
     }
     return NULL;
 }

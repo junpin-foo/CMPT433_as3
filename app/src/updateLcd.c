@@ -1,6 +1,11 @@
 /* updateLcd.c
-* Provided file to update LCD screen, updated DrawStuff_updateScreen to diplay name, frequency, dips, and max ms.
+* 
+* This file contains the implementation of the LCD update module. 
+* The module is responsible for updating the LCD display with the current beat mode, volume, and BPM.
+* The module also displays the audio and accelerometer timing statistics.
+*
 */
+
 #include "DEV_Config.h"
 #include "LCD_1in54.h"
 #include "GUI_Paint.h"

@@ -1,13 +1,13 @@
 
 #include "hal/rotary_btn_statemachine.h"
 #include "hal/gpio.h"
+#include "sleep_timer_helper.h"
 
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdatomic.h>
 #include <pthread.h>
-#include <time.h>
 
 #define GPIO_CHIP          GPIO_CHIP_0
 #define GPIO_LINE_NUMBER   10
@@ -25,7 +25,6 @@ static bool stateMachineRunning = false;
 static struct timespec last_btn_time;
 
 //PROTOTYPE
-static long time_diff_ms(struct timespec *start, struct timespec *end);
 static void* BtnStateMachine_doState(void* arg);
 
 /*
@@ -158,9 +157,5 @@ static void* BtnStateMachine_doState(void* arg)
         }
     }
     return NULL;
-}
-
-static long time_diff_ms(struct timespec *start, struct timespec *end) {
-    return (end->tv_sec - start->tv_sec) * 1000 + (end->tv_nsec - start->tv_nsec) / 1000000;
 }
 

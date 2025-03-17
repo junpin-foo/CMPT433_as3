@@ -15,6 +15,7 @@
         "fcntl.h": "c",
         "stdbool.h": "c",
         "i2c-dev.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "lcd.h": "c"
     }
 }

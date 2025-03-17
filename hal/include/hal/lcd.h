@@ -1,14 +1,15 @@
 /* lcd.h
-* LCD module starts thread that updates the screen with the current frequency, dip count and max time every second.
+    This header file defines the interface for the LCD module.
+    It provides functions to initialize and clean up the LCD module.
 */
+
 #ifndef _LCD_H_
 #define _LCD_H_
 
-/* 
-* Lcd_init starts thread that updates the screen with the current frequency, dip count and max time every second.
-* It initializes the draw_stuff module.
-*/
+// Initializes the LCD module and starts thread to query correct page to display
 void Lcd_init();
+
+// Cleans up the LCD module
 void Lcd_cleanup();
 
 #endif

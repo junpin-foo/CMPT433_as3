@@ -1,3 +1,11 @@
+/* terminalOutput.c
+ * 
+ * This file contains the implementation of the terminal output thread. 
+ * The thread prints the current beat mode, bpm, volume, audio statistics, and accelerometer statistics to the terminal every second.
+ *
+ */
+
+
 #include "beatPlayer.h"
 #include <stdio.h>
 #include <assert.h>
@@ -12,6 +20,7 @@
 #include <terminalOutput.h>
 #include "beatPlayer.h"
 #include "hal/audioMixer.h"
+#include "sleep_timer_helper.h"
 
 #define ONE_SECOND_IN_MS 1000
 static bool isInitialized = false;
@@ -21,7 +30,6 @@ static Period_statistics_t accelStats;
 static Period_statistics_t audioStats;
 
 static void* TerminalOutputThread(void* args);
-static void sleepForMs(long long delayInMs);
 void TerminalOutput_init() {
     assert(!isInitialized);
     isInitialized = true;
@@ -60,14 +68,4 @@ static void* TerminalOutputThread(void* args) {
         sleepForMs(ONE_SECOND_IN_MS);
     }
     return NULL;
-}
-
-static void sleepForMs(long long delayInMs) { 
-    const long long NS_PER_MS = 1000 * 1000;
-    const long long NS_PER_SECOND = 1000000000; 
-    long long delayNs = delayInMs * NS_PER_MS;  
-    int seconds = delayNs / NS_PER_SECOND;  
-    int nanoseconds = delayNs % NS_PER_SECOND;  
-    struct timespec reqDelay = {seconds, nanoseconds}; 
-    nanosleep(&reqDelay, (struct timespec *) NULL); 
 }

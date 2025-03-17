@@ -1,4 +1,8 @@
 /* beat_box.c
+* 
+* This file contains the main function for the beat box application. 
+* It initializes all the necessary components (audio mixer, joystick, accelerometer) which allows the user to create and play beats.
+*
 */
 
 #include "hal/audioMixer.h"
@@ -8,18 +12,13 @@
 #include "hal/accelerometer.h"
 #include "terminalOutput.h"
 #include "udp_listener.h"
+#include "sleep_timer_helper.h"
 #include <stdio.h>
 #include <unistd.h>
-#include <time.h>
-static void sleepForMs(long long delayInMs) { 
-    const long long NS_PER_MS = 1000 * 1000;
-    const long long NS_PER_SECOND = 1000000000; 
-    long long delayNs = delayInMs * NS_PER_MS;  
-    int seconds = delayNs / NS_PER_SECOND;  
-    int nanoseconds = delayNs % NS_PER_SECOND;  
-    struct timespec reqDelay = {seconds, nanoseconds}; 
-    nanosleep(&reqDelay, (struct timespec *) NULL); 
-}
+
+
+
+
 int main(void)
 {
     Period_init();
@@ -30,7 +29,7 @@ int main(void)
     Lcd_init();
     UdpListener_init();
     while(UdpListener_isRunning()) {
-        Joystick_getReading();   
+        // Joystick_getReading();   
         sleepForMs(1000);
     }
     UdpListener_cleanup();
