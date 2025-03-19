@@ -88,6 +88,8 @@ void BeatPlayer_init() {
     assert(!isInitialized);
     beatMode = 1;
     halfBeatTimeMs = (HALF_BEAT_RATIO / bpm); 
+    Gpio_initialize();
+    Ic2_initialize();
     AudioMixer_init();
     RotaryEncoderStateMachine_init();
     BtnStateMachine_init();
@@ -118,6 +120,8 @@ void BeatPlayer_cleanup() {
     BtnStateMachine_cleanup();
     Joystick_cleanUp();
     Accelerometer_cleanUp();
+    Gpio_cleanup();
+    Ic2_cleanUp();
     isInitialized = false;
 }
 

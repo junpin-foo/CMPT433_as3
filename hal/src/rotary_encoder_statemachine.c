@@ -120,7 +120,6 @@ static struct state* pCurrentState = &states[0];
 void RotaryEncoderStateMachine_init()
 {
     assert(!isInitialized);
-    Gpio_initialize();
     s_lineA = Gpio_openForEvents(GPIO_CHIP, GPIO_LINE_A);
     s_lineB = Gpio_openForEvents(GPIO_CHIP, GPIO_LINE_B);
     stateMachineRunning = true;
@@ -134,7 +133,6 @@ void RotaryEncoderStateMachine_cleanup()
     pthread_join(stateMachineThread, NULL);
     Gpio_close(s_lineA);
     Gpio_close(s_lineB);
-    Gpio_cleanup();
     isInitialized = false;
 }
 

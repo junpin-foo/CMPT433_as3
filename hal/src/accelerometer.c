@@ -62,7 +62,6 @@ void *Accelerometer_thread_func(void *arg);
 AccelerometerData Accelerometer_getReading(void);
 
 void Accelerometer_initialize(void) {
-    Ic2_initialize();
     i2c_file_desc = init_i2c_bus(I2C_BUS, ACCEL_I2C_ADDRESS);
     isInitialized = true;
     keepReading = true;
@@ -88,7 +87,6 @@ void Accelerometer_initialize(void) {
 void Accelerometer_cleanUp(void) {
     keepReading = false;
     // pthread_join(accelerometer_thread, NULL);
-    // Ic2_cleanUp();
     isInitialized = false;
 }
 

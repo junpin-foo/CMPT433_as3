@@ -43,8 +43,6 @@ static struct timespec last_btn_time;
 void *joystick_button_thread_func(void *arg);
 
 void Joystick_initialize(void) {
-    Ic2_initialize();
-    // Gpio_initialize();
     s_line = Gpio_openForEvents(GPIO_CHIP, GPIO_LINE);
     i2c_file_desc = init_i2c_bus(I2CDRV_LINUX_BUS, I2C_DEVICE_ADDRESS);
     keepReading = true;
@@ -55,10 +53,7 @@ void Joystick_initialize(void) {
 void Joystick_cleanUp(void) {
     keepReading = false;
     pthread_join(button_thread, NULL);
-    
-    Ic2_cleanUp();
     Gpio_close(s_line);
-    // Gpio_cleanup();
     isInitialized = false;
 }
 
