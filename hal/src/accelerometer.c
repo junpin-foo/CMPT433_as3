@@ -40,20 +40,20 @@
 #define REG_OUT_Z_L 0x2C
 #define REG_OUT_Z_H 0x2D
 
-//DEBOUNCE TIMER
-#define xy_THRESHOLD 0.4 
-#define z_THRESHOLD 0.55 
-#define DEBOUNCE_TIME_MS 130
+// //DEBOUNCE TIMER
+// #define xy_THRESHOLD 0.4 
+// #define z_THRESHOLD 0.55 
+// #define DEBOUNCE_TIME_MS 130
 
-static double prev_x = 0.0, prev_y = 0.0, prev_z = 0.0;
-static struct timespec last_x_time, last_y_time, last_z_time;
+// static double prev_x = 0.0, prev_y = 0.0, prev_z = 0.0;
+// static struct timespec last_x_time, last_y_time, last_z_time;
 
 #define SENSITIVITY_2G 4096.0  // Sensitivity for ±2g range (14-bit resolution)
 
 static int i2c_file_desc = -1;
 static bool isInitialized = false;
 static volatile bool keepReading = false;
-static pthread_t accelerometer_thread;
+// static pthread_t accelerometer_thread;
 
 //PROTOTYPES
 void Accelerometer_initialize(void);
@@ -66,7 +66,7 @@ void Accelerometer_initialize(void) {
     i2c_file_desc = init_i2c_bus(I2C_BUS, ACCEL_I2C_ADDRESS);
     isInitialized = true;
     keepReading = true;
-    pthread_create(&accelerometer_thread, NULL, Accelerometer_thread_func, NULL);
+    // pthread_create(&accelerometer_thread, NULL, Accelerometer_thread_func, NULL);
 
     // Example: Configure accelerometer 
     write_i2c_reg8(i2c_file_desc, REG_CTRL1, 0x97);  //100Hz, (High)14-bit resolution, (Low)14-bit resolution 
@@ -87,54 +87,54 @@ void Accelerometer_initialize(void) {
 
 void Accelerometer_cleanUp(void) {
     keepReading = false;
-    pthread_join(accelerometer_thread, NULL);
+    // pthread_join(accelerometer_thread, NULL);
     // Ic2_cleanUp();
     isInitialized = false;
 }
 
 
-void *Accelerometer_thread_func(void *arg) {
-    (void)arg;
-    assert(isInitialized);
+// void *Accelerometer_thread_func(void *arg) {
+//     (void)arg;
+//     assert(isInitialized);
 
-    clock_gettime(CLOCK_MONOTONIC, &last_x_time);
-    clock_gettime(CLOCK_MONOTONIC, &last_y_time);
-    clock_gettime(CLOCK_MONOTONIC, &last_z_time);
+//     clock_gettime(CLOCK_MONOTONIC, &last_x_time);
+//     clock_gettime(CLOCK_MONOTONIC, &last_y_time);
+//     clock_gettime(CLOCK_MONOTONIC, &last_z_time);
 
-    while (keepReading) {
-        AccelerometerData data = Accelerometer_getReading();
+//     while (keepReading) {
+//         AccelerometerData data = Accelerometer_getReading();
 
-        double dx = fabs(data.x - prev_x);
-        double dy = fabs(data.y - prev_y);
-        double dz = fabs(data.z - prev_z);
+//         double dx = fabs(data.x - prev_x);
+//         double dy = fabs(data.y - prev_y);
+//         double dz = fabs(data.z - prev_z);
 
-        struct timespec now;
-        clock_gettime(CLOCK_MONOTONIC, &now);
-        // printf("dx: %f, dy: %f, dz: %f\n", dx, dy, dz);
-        if (dx > xy_THRESHOLD  && time_diff_ms(&last_x_time, &now) > DEBOUNCE_TIME_MS) {
-            // printf("x detected!\n");
-            BeatPlayer_playHiHat();
-            last_x_time = now;
-        }
-        if (dy > xy_THRESHOLD  && time_diff_ms(&last_y_time, &now) > DEBOUNCE_TIME_MS) {
-            // printf("y detected!\n");
-            BeatPlayer_playSnare();
-            last_y_time = now;
-        }
-        if (dz > z_THRESHOLD && time_diff_ms(&last_z_time, &now) > DEBOUNCE_TIME_MS) {
-            // printf("z detected!\n");
-            BeatPlayer_playBaseDrum();
-            last_z_time = now;
-        }
+//         struct timespec now;
+//         clock_gettime(CLOCK_MONOTONIC, &now);
+//         // printf("dx: %f, dy: %f, dz: %f\n", dx, dy, dz);
+//         if (dx > xy_THRESHOLD  && time_diff_ms(&last_x_time, &now) > DEBOUNCE_TIME_MS) {
+//             // printf("x detected!\n");
+//             BeatPlayer_playHiHat();
+//             last_x_time = now;
+//         }
+//         if (dy > xy_THRESHOLD  && time_diff_ms(&last_y_time, &now) > DEBOUNCE_TIME_MS) {
+//             // printf("y detected!\n");
+//             BeatPlayer_playSnare();
+//             last_y_time = now;
+//         }
+//         if (dz > z_THRESHOLD && time_diff_ms(&last_z_time, &now) > DEBOUNCE_TIME_MS) {
+//             // printf("z detected!\n");
+//             BeatPlayer_playBaseDrum();
+//             last_z_time = now;
+//         }
 
-        prev_x = data.x;
-        prev_y = data.y;
-        prev_z = data.z;
+//         prev_x = data.x;
+//         prev_y = data.y;
+//         prev_z = data.z;
        
-       sleepForMs(10);
-    }
-    return NULL;
-}
+//        sleepForMs(10);
+//     }
+//     return NULL;
+// }
 
 AccelerometerData Accelerometer_getReading(void) {
     if (!isInitialized) {

@@ -19,11 +19,13 @@
 #include <hal/rotary_btn_statemachine.h>
 #include <sleep_timer_helper.h>
 #include "hal/joystick.h"
+#include "hal/accelerometer.h"
+#include <math.h>
 
 #define DEFAULT_BPM 120
 #define MIN_BPM 40
 #define MAX_BPM 300
-#define DEFAULT_DELAY_MS 100
+#define DEFAULT_DELAY_MS 10
 
 #define DEFAULT_VOLUME 80
 #define MIN_VOLUME 0
@@ -35,7 +37,12 @@
 #define ROCK_BEAT_STRUCT_SIZE 8
 #define CUSTOM_BEAT_STRUCT_SIZE 4
 
+#define xy_THRESHOLD 0.4 
+#define z_THRESHOLD 0.55 
+#define DEBOUNCE_TIME_MS 130
 
+static double prev_x = 0.0, prev_y = 0.0, prev_z = 0.0;
+static struct timespec last_x_time, last_y_time, last_z_time;
 
 static atomic_int volume = DEFAULT_VOLUME;
 static atomic_int bpm = DEFAULT_BPM;
@@ -44,6 +51,7 @@ static bool isRunning = true;
 static pthread_t beatThread;
 static pthread_t bmpThread;
 static pthread_t volumeThread;
+static pthread_t accelThread;
 static wavedata_t hiHat;
 static wavedata_t baseDrum;
 static wavedata_t snare;
@@ -71,6 +79,7 @@ static Beat customBeat[CUSTOM_BEAT_STRUCT_SIZE] = {
 static void* beatThreadFunction(void* args);
 static void* beatThreadDetectBPM(void* args);
 static void* beatThreadSetVolume(void* args);
+static void* beatTheadeDetectAccel(void* args);
 static void BeatPlayer_playRockBeat();
 static void BeatPlayer_playCustomBeat();
 static void BeatPlayer_detectRotarySpin();
@@ -83,6 +92,7 @@ void BeatPlayer_init() {
     RotaryEncoderStateMachine_init();
     BtnStateMachine_init();
     Joystick_initialize();
+    Accelerometer_initialize();
     isInitialized = true;
     AudioMixer_readWaveFileIntoMemory(HI_HAT_FILE, &hiHat);
     AudioMixer_readWaveFileIntoMemory(BASE_DRUM_FILE, &baseDrum);
@@ -90,6 +100,7 @@ void BeatPlayer_init() {
     pthread_create(&beatThread, NULL, &beatThreadFunction, NULL);
     pthread_create(&bmpThread, NULL, &beatThreadDetectBPM, NULL);
     pthread_create(&volumeThread, NULL, &beatThreadSetVolume, NULL);
+    pthread_create(&accelThread, NULL, &beatTheadeDetectAccel, NULL);
 }
 
 void BeatPlayer_cleanup() {
@@ -98,13 +109,15 @@ void BeatPlayer_cleanup() {
     pthread_join(beatThread, NULL);
     pthread_join(bmpThread, NULL);
     pthread_join(volumeThread, NULL);
+    pthread_join(accelThread, NULL);
     AudioMixer_freeWaveFileData(&hiHat);
     AudioMixer_freeWaveFileData(&baseDrum);
     AudioMixer_freeWaveFileData(&snare);
     AudioMixer_cleanup();
+    RotaryEncoderStateMachine_cleanup();
     BtnStateMachine_cleanup();
     Joystick_cleanUp();
-    RotaryEncoderStateMachine_cleanup();
+    Accelerometer_cleanUp();
     isInitialized = false;
 }
 
@@ -150,6 +163,48 @@ static void* beatThreadSetVolume(void* args) {
             BeatPlayer_setVolume(new_volume);
         }
         sleepForMs(DEFAULT_DELAY_MS);
+    }
+    return NULL;
+}
+
+static void* beatTheadeDetectAccel(void* args) {
+    (void) args;
+    assert(isInitialized);
+    clock_gettime(CLOCK_MONOTONIC, &last_x_time);
+    clock_gettime(CLOCK_MONOTONIC, &last_y_time);
+    clock_gettime(CLOCK_MONOTONIC, &last_z_time);
+
+    while (isRunning) {
+        AccelerometerData data = Accelerometer_getReading();
+
+        double dx = fabs(data.x - prev_x);
+        double dy = fabs(data.y - prev_y);
+        double dz = fabs(data.z - prev_z);
+
+        struct timespec now;
+        clock_gettime(CLOCK_MONOTONIC, &now);
+        // printf("dx: %f, dy: %f, dz: %f\n", dx, dy, dz);
+        if (dx > xy_THRESHOLD  && time_diff_ms(&last_x_time, &now) > DEBOUNCE_TIME_MS) {
+            // printf("x detected!\n");
+            BeatPlayer_playHiHat();
+            last_x_time = now;
+        }
+        if (dy > xy_THRESHOLD  && time_diff_ms(&last_y_time, &now) > DEBOUNCE_TIME_MS) {
+            // printf("y detected!\n");
+            BeatPlayer_playSnare();
+            last_y_time = now;
+        }
+        if (dz > z_THRESHOLD && time_diff_ms(&last_z_time, &now) > DEBOUNCE_TIME_MS) {
+            // printf("z detected!\n");
+            BeatPlayer_playBaseDrum();
+            last_z_time = now;
+        }
+
+        prev_x = data.x;
+        prev_y = data.y;
+        prev_z = data.z;
+       
+       sleepForMs(DEBOUNCE_TIME_MS);
     }
     return NULL;
 }

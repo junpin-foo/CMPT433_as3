@@ -21,7 +21,6 @@ int main(void)
 {
     Period_init();
     BeatPlayer_init();
-    Accelerometer_initialize();
     TerminalOutput_init();
     Lcd_init();
     UdpListener_init();
@@ -30,7 +29,6 @@ int main(void)
     UdpListener_cleanup();
     Lcd_cleanup();
     TerminalOutput_cleanup();
-    Accelerometer_cleanUp();
     BeatPlayer_cleanup();
     Period_cleanup();
 	return 0;
