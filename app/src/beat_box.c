@@ -17,13 +17,10 @@
 #include <unistd.h>
 
 
-
-
 int main(void)
 {
     Period_init();
     BeatPlayer_init();
-    Joystick_initialize();
     Accelerometer_initialize();
     TerminalOutput_init();
     Lcd_init();
@@ -34,7 +31,6 @@ int main(void)
     Lcd_cleanup();
     TerminalOutput_cleanup();
     Accelerometer_cleanUp();
-    Joystick_cleanUp();
     BeatPlayer_cleanup();
     Period_cleanup();
 	return 0;

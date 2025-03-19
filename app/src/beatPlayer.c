@@ -82,6 +82,7 @@ void BeatPlayer_init() {
     AudioMixer_init();
     RotaryEncoderStateMachine_init();
     BtnStateMachine_init();
+    Joystick_initialize();
     isInitialized = true;
     AudioMixer_readWaveFileIntoMemory(HI_HAT_FILE, &hiHat);
     AudioMixer_readWaveFileIntoMemory(BASE_DRUM_FILE, &baseDrum);
@@ -102,6 +103,7 @@ void BeatPlayer_cleanup() {
     AudioMixer_freeWaveFileData(&snare);
     AudioMixer_cleanup();
     BtnStateMachine_cleanup();
+    Joystick_cleanUp();
     RotaryEncoderStateMachine_cleanup();
     isInitialized = false;
 }
