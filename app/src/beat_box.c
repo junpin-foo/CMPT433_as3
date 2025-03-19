@@ -28,9 +28,8 @@ int main(void)
     TerminalOutput_init();
     Lcd_init();
     UdpListener_init();
-    while(UdpListener_isRunning()) {  
-        sleepForMs(1000);
-    }
+
+    // UDP clean up will block until UDP server stop
     UdpListener_cleanup();
     Lcd_cleanup();
     TerminalOutput_cleanup();

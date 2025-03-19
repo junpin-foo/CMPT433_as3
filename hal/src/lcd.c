@@ -20,14 +20,14 @@ static bool isInitialized = false;
 static pthread_t lcdThread;
 static volatile bool lcdRunning = true;
 
-static void *lcd_thread(void* arg) {
-    (void)arg;
-    while(lcdRunning){
-        UpdateLcd_withPage(Joystick_getPageCount());
-        sleepForMs(1000);
-    }
-    return NULL;
-}
+// static void *lcd_thread(void* arg) {
+//     (void)arg;
+//     while(lcdRunning){
+//         UpdateLcd_withPage(Joystick_getPageCount());
+//         sleepForMs(1000);
+//     }
+//     return NULL;
+// }
 
 
 void Lcd_init()
@@ -36,7 +36,7 @@ void Lcd_init()
     
     // Module Init
 	UpdateLcd_init();
-    pthread_create(&lcdThread, NULL, &lcd_thread, NULL);
+    // pthread_create(&lcdThread, NULL, &lcd_thread, NULL);
     isInitialized = true;
 }
 void Lcd_cleanup()

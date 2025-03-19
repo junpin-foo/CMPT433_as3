@@ -42,4 +42,6 @@ struct JoystickData Joystick_getReading();
 // Returns the current page number from pressing down on joystick
 int Joystick_getPageCount();
 
+// Return the current Joystick Direction
+JoystickDirection getJoystickDirection(void);
 #endif

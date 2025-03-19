@@ -258,6 +258,7 @@ void UdpListener_cleanup(void) {
     assert(isInitialized);
     pthread_join(udp_thread, NULL);
     close(sockfd);
+    isInitialized = false;
 }
 
 bool UdpListener_isRunning(void) {
