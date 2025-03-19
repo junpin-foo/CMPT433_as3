@@ -37,13 +37,13 @@
 
 
 
-static atomic_int volumn = DEFAULT_VOLUME;
+static atomic_int volume = DEFAULT_VOLUME;
 static atomic_int bpm = DEFAULT_BPM;
 static atomic_int beatMode = 1; // 1 = Rock, 2 = Custom, 0 = None
 static bool isRunning = true;
 static pthread_t beatThread;
 static pthread_t bmpThread;
-static pthread_t volumnThread;
+static pthread_t volumeThread;
 static wavedata_t hiHat;
 static wavedata_t baseDrum;
 static wavedata_t snare;
@@ -70,7 +70,7 @@ static Beat customBeat[CUSTOM_BEAT_STRUCT_SIZE] = {
 
 static void* beatThreadFunction(void* args);
 static void* beatThreadDetectBPM(void* args);
-static void* beatThreadSetVolumn(void* args);
+static void* beatThreadSetVolume(void* args);
 static void BeatPlayer_playRockBeat();
 static void BeatPlayer_playCustomBeat();
 static void BeatPlayer_detectRotarySpin();
@@ -88,7 +88,7 @@ void BeatPlayer_init() {
     AudioMixer_readWaveFileIntoMemory(SNARE_FILE, &snare);
     pthread_create(&beatThread, NULL, &beatThreadFunction, NULL);
     pthread_create(&bmpThread, NULL, &beatThreadDetectBPM, NULL);
-    pthread_create(&volumnThread, NULL, &beatThreadSetVolumn, NULL);
+    pthread_create(&volumeThread, NULL, &beatThreadSetVolume, NULL);
 }
 
 void BeatPlayer_cleanup() {
@@ -96,7 +96,7 @@ void BeatPlayer_cleanup() {
     isRunning = false;
     pthread_join(beatThread, NULL);
     pthread_join(bmpThread, NULL);
-    pthread_join(volumnThread, NULL);
+    pthread_join(volumeThread, NULL);
     AudioMixer_freeWaveFileData(&hiHat);
     AudioMixer_freeWaveFileData(&baseDrum);
     AudioMixer_freeWaveFileData(&snare);
@@ -133,18 +133,18 @@ static void *beatThreadDetectBPM(void *args) {
 }
 
 
-static void* beatThreadSetVolumn(void* args) {
+static void* beatThreadSetVolume(void* args) {
     (void) args;
     assert(isInitialized);
     while (isRunning) {
         JoystickDirection data = getJoystickDirection();
         if (data == JOYSTICK_UP) {
-            int new_volume = atomic_load(&volumn) + 5;
-            if (new_volume <= 100) atomic_store(&volumn, new_volume);
+            int new_volume = atomic_load(&volume) + 5;
+            if (new_volume <= 100) atomic_store(&volume, new_volume);
             BeatPlayer_setVolume(new_volume);
         } else if (data == JOYSTICK_DOWN) {
-            int new_volume = atomic_load(&volumn) - 5;
-            if (new_volume >= 0) atomic_store(&volumn, new_volume);
+            int new_volume = atomic_load(&volume) - 5;
+            if (new_volume >= 0) atomic_store(&volume, new_volume);
             BeatPlayer_setVolume(new_volume);
         }
         sleepForMs(DEFAULT_DELAY_MS);
@@ -185,8 +185,8 @@ void BeatPlayer_setVolume(int newVolume) {
     } else if (newVolume > MAX_VOLUME) {
         newVolume = MAX_VOLUME;
     }
-    volumn = newVolume;
-    AudioMixer_setVolume(volumn);
+    volume = newVolume;
+    AudioMixer_setVolume(volume);
 }
 
 void BeatPlayer_setBeatMode(int mode) {
