@@ -42,7 +42,7 @@
 
 #define xy_THRESHOLD 0.6 
 #define z_THRESHOLD 0.5
-#define DEBOUNCE_TIME_MS 200
+#define DEBOUNCE_TIME_MS 150
 
 static double prev_x = 0.0, prev_y = 0.0, prev_z = 0.0;
 static struct timespec last_x_time, last_y_time, last_z_time;
@@ -61,6 +61,8 @@ static wavedata_t snare;
 static bool isInitialized = false;
 static atomic_int halfBeatTimeMs = 0;
 
+
+// {Hi-Hat, Base Drum, Snare}
 static Beat rockBeat[ROCK_BEAT_STRUCT_SIZE] = {
     {true,  true,  false}, // 1   - Hi-Hat & Bass Drum
     {true,  false, false}, // 1.5 - Hi-Hat
@@ -72,6 +74,7 @@ static Beat rockBeat[ROCK_BEAT_STRUCT_SIZE] = {
     {true,  false, false}  // 4.5 - Hi-Hat
 };
 
+// {Hi-Hat, Base Drum, Snare}
 static Beat customBeat[CUSTOM_BEAT_STRUCT_SIZE] = {
     {false, true,  false}, // 1   - Bass Drum
     {false, false, true }, // 1.5 - Snare
