@@ -23,7 +23,7 @@ target_link_libraries(beat_box LINK_PRIVATE Threads::Threads)
 add_custom_command(TARGET beat_box POST_BUILD 
   COMMAND "${CMAKE_COMMAND}" -E copy 
      "$<TARGET_FILE:beat_box>"
-     "~/cmpt433/public/beat_box" 
+     "~/cmpt433/public/myApps/beatbox" 
   COMMENT "Copying ARM executable to public NFS directory")
 
 
@@ -32,8 +32,15 @@ add_custom_command(TARGET beat_box POST_BUILD
 add_custom_command(TARGET beat_box POST_BUILD 
   COMMAND "${CMAKE_COMMAND}" -E copy_directory
      "${CMAKE_SOURCE_DIR}/beatbox-wav-files"
-     "~/cmpt433/public/wave-files" 
+     "~/cmpt433/public/myApps/beatbox-wave-files" 
   COMMENT "Copying WAVE files to public NFS directory")
+
+#Copy the server folder to NFS
+add_custom_command(TARGET beat_box POST_BUILD 
+COMMAND "${CMAKE_COMMAND}" -E copy_directory
+    "${CMAKE_SOURCE_DIR}/beatbox-server-copy"
+    "~/cmpt433/public/myApps/beatbox-server-copy" 
+COMMENT "Copying WAVE files to public NFS directory")
 
 find_library(GPIOD_LIBRARY gpiod)       
 target_link_libraries(beat_box LINK_PRIVATE gpiod)

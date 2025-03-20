@@ -40,8 +40,8 @@
 #define ROCK_BEAT_STRUCT_SIZE 8
 #define CUSTOM_BEAT_STRUCT_SIZE 4
 
-#define xy_THRESHOLD 0.55 
-#define z_THRESHOLD 0.6
+#define xy_THRESHOLD 0.6 
+#define z_THRESHOLD 0.5
 #define DEBOUNCE_TIME_MS 200
 
 static double prev_x = 0.0, prev_y = 0.0, prev_z = 0.0;

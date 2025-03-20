@@ -306,6 +306,8 @@ static void fillPlaybackBuffer(short *buff, int size)
 					if (mixedValue < SHRT_MIN) mixedValue = SHRT_MIN;
 					buff[j] = mixedValue;
 					location ++;
+				 } else {
+					break;
 				 }
 			 }
 			 // This psound has finised playing, so free this slot
@@ -322,7 +324,6 @@ static void fillPlaybackBuffer(short *buff, int size)
 	 pthread_mutex_unlock(&audioMutex);
 	
 }
-
 
 void* playbackThread(void* _arg)
 {

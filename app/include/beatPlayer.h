@@ -7,9 +7,9 @@
  * file loading, and state machines) and starting a thread to repeately play the chosen beats.
  * 
  * The module uses sound files for different drum sounds. These files must be available 
- * at the specified locations (e.g., "wave-files/100051__menegass__gui-drum-bd-hard.wav" 
- * for Bass Drum, "wave-files/100053__menegass__gui-drum-cc.wav" for Hi-Hat, and 
- * "wave-files/100059__menegass__gui-drum-snare-soft.wav" for Snare).
+ * at the specified locations (e.g., "beatbox-wave-files/100051__menegass__gui-drum-bd-hard.wav" 
+ * for Bass Drum, "wbeatbox-wave-files100053__menegass__gui-drum-cc.wav" for Hi-Hat, and 
+ * "beatbox-wave-files/100059__menegass__gui-drum-snare-soft.wav" for Snare).
  * 
  * Functions provided by this module allow for control over sound playback, BPM (beats 
  * per minute), volume, and the ability to switch between different beat modes.
@@ -21,9 +21,9 @@
 #include "periodTimer.h"
 #include <stdbool.h>
 
-#define BASE_DRUM_FILE "wave-files/100051__menegass__gui-drum-bd-hard.wav"
-#define HI_HAT_FILE "wave-files/100053__menegass__gui-drum-cc.wav"
-#define SNARE_FILE "wave-files/100059__menegass__gui-drum-snare-soft.wav"
+#define BASE_DRUM_FILE "beatbox-wave-files/100051__menegass__gui-drum-bd-hard.wav"
+#define HI_HAT_FILE "beatbox-wave-files/100053__menegass__gui-drum-cc.wav"
+#define SNARE_FILE "beatbox-wave-files/100059__menegass__gui-drum-snare-soft.wav"
 #define NONE_MODE 0
 #define ROCK_MODE 1
 #define CUSTOM_MODE 2
