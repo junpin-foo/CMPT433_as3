@@ -21,11 +21,14 @@
 #include "hal/joystick.h"
 #include "hal/accelerometer.h"
 #include <math.h>
+#include "hal/gpio.h"
+#include "hal/i2c.h"
 
 #define DEFAULT_BPM 120
 #define MIN_BPM 40
 #define MAX_BPM 300
 #define DEFAULT_DELAY_MS 10
+#define DELAY_100_MS 100
 
 #define DEFAULT_VOLUME 80
 #define MIN_VOLUME 0
@@ -37,9 +40,9 @@
 #define ROCK_BEAT_STRUCT_SIZE 8
 #define CUSTOM_BEAT_STRUCT_SIZE 4
 
-#define xy_THRESHOLD 0.4 
-#define z_THRESHOLD 0.55 
-#define DEBOUNCE_TIME_MS 130
+#define xy_THRESHOLD 0.55 
+#define z_THRESHOLD 0.6
+#define DEBOUNCE_TIME_MS 200
 
 static double prev_x = 0.0, prev_y = 0.0, prev_z = 0.0;
 static struct timespec last_x_time, last_y_time, last_z_time;
@@ -135,7 +138,7 @@ static void* beatThreadFunction(void* args) {
         } else if (beatMode == CUSTOM_MODE) { // Custom Beat
             BeatPlayer_playCustomBeat();
         } else {
-            sleepForMs(DEFAULT_DELAY_MS);
+            sleepForMs(DELAY_100_MS);
         }
     }
     return NULL;
@@ -146,7 +149,7 @@ static void *beatThreadDetectBPM(void *args) {
     assert(isInitialized);
     while (isRunning) {
         BeatPlayer_detectRotarySpin();
-        sleepForMs(DEFAULT_DELAY_MS);
+        sleepForMs(DELAY_100_MS);
     }
     return NULL;
 }
@@ -166,7 +169,7 @@ static void* beatThreadSetVolume(void* args) {
             if (new_volume >= 0) atomic_store(&volume, new_volume);
             BeatPlayer_setVolume(new_volume);
         }
-        sleepForMs(DEFAULT_DELAY_MS);
+        sleepForMs(DELAY_100_MS);
     }
     return NULL;
 }
@@ -187,19 +190,15 @@ static void* beatTheadeDetectAccel(void* args) {
 
         struct timespec now;
         clock_gettime(CLOCK_MONOTONIC, &now);
-        // printf("dx: %f, dy: %f, dz: %f\n", dx, dy, dz);
         if (dx > xy_THRESHOLD  && time_diff_ms(&last_x_time, &now) > DEBOUNCE_TIME_MS) {
-            // printf("x detected!\n");
             BeatPlayer_playHiHat();
             last_x_time = now;
         }
         if (dy > xy_THRESHOLD  && time_diff_ms(&last_y_time, &now) > DEBOUNCE_TIME_MS) {
-            // printf("y detected!\n");
             BeatPlayer_playSnare();
             last_y_time = now;
         }
         if (dz > z_THRESHOLD && time_diff_ms(&last_z_time, &now) > DEBOUNCE_TIME_MS) {
-            // printf("z detected!\n");
             BeatPlayer_playBaseDrum();
             last_z_time = now;
         }
@@ -208,7 +207,7 @@ static void* beatTheadeDetectAccel(void* args) {
         prev_y = data.y;
         prev_z = data.z;
        
-       sleepForMs(DEBOUNCE_TIME_MS);
+       sleepForMs(DEFAULT_DELAY_MS);
     }
     return NULL;
 }

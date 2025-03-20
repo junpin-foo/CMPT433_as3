@@ -15,13 +15,16 @@
 #include <signal.h>     //signal()
 #include <stdbool.h>
 #include <assert.h>
-
+#include "pthread.h"
 #include "updateLcd.h"
 #include "beatPlayer.h"
 #include "periodTimer.h"
 #include "terminalOutput.h"
+#include "hal/joystick.h"
+#include "sleep_timer_helper.h"
 
 #define DELAY_MS 2000
+#define SLEEP_MS 10
 #define BACKLIGHT 1023
 #define INITIAL_X 5
 #define INITIAL_Y 40
@@ -44,7 +47,9 @@ static char avgAudioMs[statBufferSize];
 static char minAccelMs[statBufferSize];
 static char maxAccelMs[statBufferSize];
 static char avgAccelMs[statBufferSize];
-
+static pthread_t outputThread;
+static bool isRunning = false;
+static void* UpdateLcdThread(void* args);
 void UpdateLcd_init()
 {
     assert(!isInitialized);
@@ -69,11 +74,15 @@ void UpdateLcd_init()
         perror("Failed to apply for black memory");
         exit(0);
     }
+    isRunning = true;
     isInitialized = true;
+    pthread_create(&outputThread, NULL, &UpdateLcdThread, NULL);
 }
 void UpdateLcd_cleanup()
 {
     assert(isInitialized);
+    isRunning = false;
+    pthread_join(outputThread, NULL);
     LCD_1IN54_Clear(WHITE);
     LCD_SetBacklight(0);
     // Module Exit
@@ -82,6 +91,17 @@ void UpdateLcd_cleanup()
 	DEV_ModuleExit();
     isInitialized = false;
 }
+
+static void* UpdateLcdThread(void* args) {
+    (void) args;
+    assert(isInitialized);
+    while (isRunning) {
+        UpdateLcd_withPage(Joystick_getPageCount());
+        sleepForMs(SLEEP_MS);
+    }
+    return NULL;
+}
+
 
 void UpdateLcd_withPage(int page)
 {

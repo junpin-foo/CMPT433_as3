@@ -22,6 +22,8 @@
 #define REG_DATA 0x00
 #define TLA2024_CHANNEL_CONF_0 0x83C2 // Configuration for Y-axis
 #define TLA2024_CHANNEL_CONF_1 0x83D2 // Configuration for X-axis
+#define X_Y_UP_THRESHOLD 0.7
+#define X_Y_DOWN_THRESHOLD -0.7
 
 #define GPIO_CHIP GPIO_CHIP_2
 #define GPIO_LINE 15
@@ -102,10 +104,10 @@ static double scale_value(double raw, double min, double max) {
 
 JoystickDirection getJoystickDirection(void) {
     struct JoystickData data = Joystick_getReading();
-    if (data.x > 0.7) return JOYSTICK_RIGHT;
-    if (data.x < -0.7) return JOYSTICK_LEFT;
-    if (data.y > 0.7) return JOYSTICK_UP;
-    if (data.y < -0.7) return JOYSTICK_DOWN;
+    if (data.x > X_Y_UP_THRESHOLD) return JOYSTICK_RIGHT;
+    if (data.x < X_Y_DOWN_THRESHOLD) return JOYSTICK_LEFT;
+    if (data.y > X_Y_UP_THRESHOLD) return JOYSTICK_UP;
+    if (data.y < X_Y_DOWN_THRESHOLD) return JOYSTICK_DOWN;
     return JOYSTICK_CENTER;
 }
 
@@ -130,9 +132,6 @@ struct JoystickData Joystick_getReading() {
     if (x_position < x_min) x_min = x_position;
     if (x_position > x_max) x_max = x_position;
     double x_scaled = scale_value(x_position, x_min, x_max);
-
-    // printf("Joystick current: X = %d, Y = %d\n", x_position, y_position);
-    // printf("Joystick scaled current: X = %f, Y = %f\n", x_scaled, y_scaled);
 
     struct JoystickData data = {
         .x = x_scaled,

@@ -20,7 +20,6 @@
 #include <terminalOutput.h>
 #include "beatPlayer.h"
 #include "hal/audioMixer.h"
-#include "hal/joystick.h"
 #include "sleep_timer_helper.h"
 #include "updateLcd.h"
 
@@ -67,7 +66,6 @@ static void* TerminalOutputThread(void* args) {
         printf("M%d %dbpm vol:%d  Audio[%.3f, %.3f] avg %.3f/%d  Accel[%.3f, %.3f] avg %.3f/%d\n", beatMode, bpm, volume, 
             audioStats.minPeriodInMs, audioStats.maxPeriodInMs, audioStats.avgPeriodInMs, audioStats.numSamples,
             accelStats.minPeriodInMs, accelStats.maxPeriodInMs, accelStats.avgPeriodInMs, accelStats.numSamples);
-        UpdateLcd_withPage(Joystick_getPageCount());
         sleepForMs(ONE_SECOND_IN_MS);
     }
     return NULL;

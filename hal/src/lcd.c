@@ -10,8 +10,6 @@
 #include <pthread.h>
 #include <unistd.h>
 #include <updateLcd.h>
-#include "hal/joystick.h"
-#include "sleep_timer_helper.h"
 
 
 #define BUFFER_SIZE 100
@@ -19,16 +17,6 @@
 static bool isInitialized = false;
 static pthread_t lcdThread;
 static volatile bool lcdRunning = true;
-
-// static void *lcd_thread(void* arg) {
-//     (void)arg;
-//     while(lcdRunning){
-//         UpdateLcd_withPage(Joystick_getPageCount());
-//         sleepForMs(1000);
-//     }
-//     return NULL;
-// }
-
 
 void Lcd_init()
 {
